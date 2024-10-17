@@ -25,6 +25,11 @@ const Navbar = () =>{
                                     <p>Contacts</p>
                                 </Link>
                             </li>
+                            <li>
+                                <Link href="/media">
+                                    <p>Media</p>
+                                </Link>
+                            </li>
                         </ul>
                         <Button />
                     </div>
