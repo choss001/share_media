@@ -1,4 +1,4 @@
-import Navbar from '@/app/components/navigation/navbar/index';
+import Navbar from '@/app/components/navigation/header/index';
 
 export default function Page(){
     return (

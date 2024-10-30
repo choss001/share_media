@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navigation from "./components/navigation/navbar";
+import Header from "./components/navigation/header";
+import HeaderMobile from "./components/navigation/header-mobile.tsx";
 import SideNav from "./components/navigation/sidebar";
 
 const geistSans = localFont({
@@ -30,9 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navigation />
-        <SideNav/>
-        {children}
+        <div className="flex h-screen">
+          <div className="w-40">
+            <SideNav/>
+          </div>
+          {children}
+        </div>
       </body>
     </html>
   );
