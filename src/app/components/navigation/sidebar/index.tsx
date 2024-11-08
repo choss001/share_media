@@ -6,10 +6,16 @@ export default function sideNav(){
     <>
       <div className="flex h-full flex-col px-3 py-5 bg-white">
         <Link
-          className="mb-2 w-full h-20 items-end rounded-md bg-blue-600 -p4"
-          href="/services"
-          />
-        <div className="w-full bg-slate-200 h-20 rounded-md"> test</div>
+          className="mb-2 w-full h-20 items-end rounded-md bg-blue-600 -p4 flex items-center justify-center"
+          href="/">
+          <div className="">main</div>
+        </Link>
+        <Link
+          className="mb-2 w-full h-20 bg-slate-200 items-end rounded-md bg-blue-600 -p4 flex items-center justify-center"
+          href="/services">
+            <div>services</div>
+          </Link>
+          
       </div>
      
 
