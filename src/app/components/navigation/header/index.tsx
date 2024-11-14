@@ -8,7 +8,25 @@ import Button from "./Button";
 
 const Header = () => {
     return(
-        <div>Header</div>
+        <div className="justify-center flex border-solid border-b-[1px] h-[50px] items-center">
+            <div>성식이</div>
+            <div className="ml-5">test</div>
+            <Link
+                className="flex"
+                href="/">
+            <div className="ml-12">main</div>
+            </Link>
+            <Link
+                className=""
+                href="/services">
+                <div className="ml-12">services</div>
+            </Link>
+            <Link
+                className=""
+                href="/test">
+            <div className="ml-12">upload</div>
+            </Link>
+        </div>
     )
 
 }

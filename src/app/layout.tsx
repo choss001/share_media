@@ -31,11 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex h-screen">
-          <div className="w-40">
-            <SideNav/>
+        <div className="h-screen">
+          <Header></Header>
+          <div className="flex items-center justify-center" style={{ height: 'calc(100vh - 50px)' }}>
+            {children}
           </div>
-          {children}
         </div>
       </body>
     </html>

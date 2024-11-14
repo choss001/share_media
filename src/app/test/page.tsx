@@ -41,7 +41,7 @@ export default function page(){
 
     return (
         <>
-            <div>
+            <div className='my-[60px]'>
                 <h1>Upload Media File</h1>
                 <input type="file" onChange={handleFileChange} />
                 <button onClick={handleFileUpload}>Upload</button>
