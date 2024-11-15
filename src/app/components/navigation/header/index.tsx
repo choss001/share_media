@@ -9,10 +9,12 @@ import Button from "./Button";
 const Header = () => {
     return(
         <div className="justify-center flex border-solid border-b-[1px] h-[50px] items-center">
-            <div>성식이</div>
-            <div className="ml-5">test</div>
             <Link
-                className="flex"
+                href="https://github.com/choss001">
+            <div>성식이</div>
+            </Link>
+            <Link
+                className="ml-[500px]"
                 href="/">
             <div className="ml-12">main</div>
             </Link>
