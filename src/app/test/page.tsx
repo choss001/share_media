@@ -1,7 +1,7 @@
 'use client'
-import { useEffect, useState} from 'react';
+import { useState } from 'react';
 
-export default function page(){
+export default function Page(){
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState("");
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

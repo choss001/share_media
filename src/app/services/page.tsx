@@ -9,20 +9,9 @@ interface MediaItem{
     image: Uint8Array | null;
 }
 
-export default function page(){
+export default function Page(){
 
-    const [message, setMessage] = useState("");
     const [mediaList, setMediaList] = useState<MediaItem[]>([]);
-
-    useEffect(() => {
-        fetch("http://localhost:8080/test")
-        .then((res) => res.json())
-        .then((data) => {
-            setMessage(data.key)
-            console.log(data)
-        })
-        .catch((err) => console.error("Error fetching message:", err));
-    }, []);
 
     useEffect(() => {
         fetch("http://localhost:8080/mediaList")

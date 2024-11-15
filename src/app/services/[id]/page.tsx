@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DeleteMedia } from '@/app/ui/services/button';
 
-export default function page({ params }: {params: {id: string}}){
+export default function Page({ params }: {params: {id: string}}){
     const id = params.id;
 
     const [videoUrl, setVideoUrl] = useState("");

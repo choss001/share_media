@@ -1,6 +1,5 @@
 "use server";
 import fs from "node:fs/promises";
-import { revalidatePath } from "next/cache";
 import { redirect } from 'next/navigation';
 
 export async function uploadFile(formData: FormData) {
