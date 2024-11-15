@@ -11,10 +11,12 @@ interface MediaItem{
 
 export default function Page(){
 
+    const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const [mediaList, setMediaList] = useState<MediaItem[]>([]);
+    console.log(`why!!! ${apiUrl}`)
 
     useEffect(() => {
-        fetch("http://localhost:8080/mediaList")
+        fetch(`${apiUrl}/mediaList`)
         .then((res) => res.json())
         .then((data: MediaItem[]) => {
             setMediaList(data)

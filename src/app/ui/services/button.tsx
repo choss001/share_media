@@ -2,9 +2,11 @@ import Image from 'next/image'
 
 export function DeleteMedia ({ id, onDelete }: { id: string; onDelete: () => void }) {
 
+
+    const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const deleteMedia = async () => {
         try{
-            const response = await fetch(`http://localhost:8080/deleteMedia/${id}`,{
+            const response = await fetch(`${apiUrl}/deleteMedia/${id}`,{
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'

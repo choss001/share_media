@@ -5,14 +5,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { DeleteMedia } from '@/app/ui/services/button';
 
+//const apiUrl = process.env.SPRING_API_URL;
+
 export default function Page({ params }: {params: {id: string}}){
     const id = params.id;
 
     const [videoUrl, setVideoUrl] = useState("");
     const router = useRouter();
 
+    const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     useEffect(() => {
-        fetch(`http://localhost:8080/stream/${id}`)
+        fetch(`${apiUrl}/stream/${id}`)
         .then((res) => res.blob())
         .then((blob) => {
             const url = URL.createObjectURL(blob);

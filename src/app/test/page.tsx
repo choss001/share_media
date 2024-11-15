@@ -4,6 +4,7 @@ import { useState } from 'react';
 export default function Page(){
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState("");
+    const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files == null){
             console.error("file is null");
@@ -22,7 +23,7 @@ export default function Page(){
         formData.append("file", selectedFile);
 
         try {
-            const response = await fetch("http://localhost:8080/upload/media", {
+            const response = await fetch(`${apiUrl}/upload/media`, {
                 method: "POST",
                 body: formData,
             });
