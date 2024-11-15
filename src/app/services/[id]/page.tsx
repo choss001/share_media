@@ -22,7 +22,7 @@ export default function Page({ params }: {params: {id: string}}){
             setVideoUrl(url);
         })
         .catch((err) => console.error("Error fetching board List:", err))
-    }, [id]);
+    }, [apiUrl, id]);
 
     const handleDeleteSuccess = () => {
         // Redirect to the list page after deletion

@@ -24,7 +24,7 @@ export default function Page(){
 
         })
         .catch((err) => console.error("Error fetching board List:", err))
-    }, []);
+    }, [apiUrl]);
 
 
     return(
