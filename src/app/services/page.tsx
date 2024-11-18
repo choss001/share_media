@@ -33,7 +33,7 @@ export default function Page(){
                 <div className='grid grid-cols-3 gap-4'>
                     {mediaList.map((temp) => (
                         <div key={temp.id} className='border-solid border-slate-100 border-[1px] p-2 flex flex-col'> 
-                            <p className='whitespace-nowrap'>File Name: {temp.fileName}</p>
+                            <p className='whitespace-nowrap hidden md:block'>File Name: {temp.fileName}</p>
                                 <div className='flex grow justify-center items-center '>
                                     <Link
                                         href={`/services/${temp.id}`}>

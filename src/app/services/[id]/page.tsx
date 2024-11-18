@@ -32,28 +32,21 @@ export default function Page({ params }: {params: {id: string}}){
         <div>
             {videoUrl ? (
                 <>
-                <video 
-                    controls 
-                    width="400" 
-                    height="300"
-                    autoPlay
-                    loop
-                    preload="auto"
-                    muted
-                >
-                <source src={videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-                </video>
-                    <Link
-                        href={`/deleteMedia/${id}`}>
-                        <Image 
-                            src='/trash-can-icon.avif'
-                            width={30}
-                            height={200}
-                            alt='trash'>
-                        </Image>
-                    </Link>
-                    <DeleteMedia id={id} onDelete={handleDeleteSuccess} ></DeleteMedia>
+                    <video 
+                        controls 
+                        width="400" 
+                        height="300"
+                        autoPlay
+                        loop
+                        preload="auto"
+                        muted
+                    >
+                    <source src={videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                    </video>
+                    <div className='flex flex-row-reverse'>
+                        <DeleteMedia id={id} onDelete={handleDeleteSuccess} ></DeleteMedia>
+                    </div>
                 </>
             ) : (
                 <p>Loading video...</p>

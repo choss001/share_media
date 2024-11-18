@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/navigation/header";
+import HeaderMobile from "./components/navigation/header-mobile.tsx";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <div className="h-screen">
+          <HeaderMobile></HeaderMobile>
           <Header></Header>
           <div className="flex items-center justify-center" style={{ height: 'calc(100vh - 50px)' }}>
             {children}

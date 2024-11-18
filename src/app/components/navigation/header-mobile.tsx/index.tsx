@@ -1,7 +1,28 @@
-const Header = () => {
+'use clinet';
+import React from "react";
+import Link from "next/link";
+ 
+
+const HeaderMobile = () => {
     return(
-        <div>Header mobile</div>
+        <div className="border-solid border-b-[1px] h-[50px] justify-center items-center flex md:hidden">
+            <Link
+                className="flex-auto"
+                href="/">
+                <div className="flex justify-center">main</div>
+            </Link>
+            <Link
+                className="flex-auto"
+                href="/services">
+                <div className="flex justify-center">services</div>
+            </Link>
+            <Link
+                className="flex-auto"
+                href="/test">
+                <div className="flex justify-center">upload</div>
+            </Link>
+        </div>
     )
 
 }
-export default Header;
+export default HeaderMobile;
