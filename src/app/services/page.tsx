@@ -13,15 +13,18 @@ export default function Page(){
 
     const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const [mediaList, setMediaList] = useState<MediaItem[]>([]);
+    const [loading, setLoading] = useState(false);
     console.log(`why!!! ${apiUrl}`)
 
     useEffect(() => {
+
+        setLoading(true);
         fetch(`${apiUrl}/mediaList`)
         .then((res) => res.json())
         .then((data: MediaItem[]) => {
             setMediaList(data)
             console.log(data)
-
+            setLoading(false);
         })
         .catch((err) => console.error("Error fetching board List:", err))
     }, [apiUrl]);
@@ -29,6 +32,9 @@ export default function Page(){
 
     return(
         <>
+            {loading ? (
+                    <p>Loading</p>
+            ): (
             <div className='my-[60px]'>
                 <div className='grid grid-cols-3 gap-4'>
                     {mediaList.map((temp) => (
@@ -51,6 +57,7 @@ export default function Page(){
                     ))}
                 </div>
             </div>
+            )}
         </>
     )
 }
