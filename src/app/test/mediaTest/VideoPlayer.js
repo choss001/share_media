@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 export default function VideoPlayer({ videoId }) {
   const videoRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [videoUrl, setVideoUrl] = useState("");
 
   const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
   console.log(`why =!!! `, apiUrl);
@@ -15,7 +14,6 @@ export default function VideoPlayer({ videoId }) {
         .then((blob) => {
             const url = URL.createObjectURL(blob);
             console.log("whatis this url : ",url)
-            setVideoUrl(url);
         })
         .catch((err) => console.error("Error fetching board List:", err))
 
