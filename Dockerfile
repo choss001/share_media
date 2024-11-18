@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 
+RUN apk --no-cache add curl
 # Copy the rest of the Next.js app
 COPY . .
 
@@ -15,5 +16,6 @@ COPY . .
 RUN npm run build
 
 # Start Next.js
+CMD ["npm", "run", "build"]
 CMD ["npm", "start"]
 
