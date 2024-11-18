@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Header = () => {
     return(
-        <div className="justify-center flex border-solid border-b-[1px] h-[50px] items-center">
+        <div className="justify-center flex border-solid border-b-[1px] h-[50px] items-center hidden md:flex">
             <Link
                 href="https://github.com/choss001">
             <div>성식이</div>
