@@ -25,6 +25,7 @@ export default function Page(){
             setMediaList(data)
             console.log(data)
             setLoading(false);
+
         })
         .catch((err) => console.error("Error fetching board List:", err))
     }, [apiUrl]);
@@ -42,7 +43,7 @@ export default function Page(){
                             <p className='whitespace-nowrap hidden md:block'>File Name: {temp.fileName}</p>
                                 <div className='flex grow justify-center items-center '>
                                     <Link
-                                        href={`/services/${temp.id}`}>
+                                        href={`/test/mediaTest/${temp.id}`}>
                                         <Image 
                                             src={temp.image ? `data:image/png;base64,${temp.image}` : '/no_image.webp'}
                                             alt="nothing"
