@@ -35,7 +35,7 @@ export default function Page(){
     return(
         <>
             {loading ? (
-                    <p>Loading</p>
+                    <div className='flex justify-center items-center h-full'>Loading</div>
             ): (
             <div className='my-[60px]'>
                 <div className='grid grid-cols-3 gap-4'>
@@ -51,6 +51,7 @@ export default function Page(){
                                         height={100}
                                         style={{ width: '100%', height: 'auto' }}
                                     />
+                                    {` this it url!!! why not work !! ${apiUrl}/${temp.thumbnailName}`}
                                 </Link>
                         </div>
                     ))}
