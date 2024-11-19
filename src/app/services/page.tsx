@@ -7,6 +7,7 @@ interface MediaItem{
     id: string;
     fileName: string;
     image: Uint8Array | null;
+    thumbnailName: string;
 }
 
 export default function Page(){
@@ -44,15 +45,14 @@ export default function Page(){
                                 <Link
                                     href={`/test/mediaTest/${temp.id}`}>
                                     <Image 
-                                        src={temp.image ? `data:image/png;base64,${temp.image}` : '/no_image.webp'}
+                                        src={temp.thumbnailName ? `${apiUrl}/${temp.thumbnailName}` : '/no_image.webp'}
                                         alt="nothing"
                                         width={100}
                                         height={100}
-                                        style={{ width: 'auto', height: 'auto' }}
+                                        style={{ width: '100%', height: 'auto' }}
                                     />
                                 </Link>
                         </div>
-
                     ))}
                 </div>
             </div>
@@ -72,3 +72,10 @@ export default function Page(){
                         Your browser does not support the video tag.
                     </video>
     */
+                                    // <Image 
+                                    //     src={temp.image ? `data:image/png;base64,${temp.image}` : '/no_image.webp'}
+                                    //     alt="nothing"
+                                    //     width={100}
+                                    //     height={100}
+                                    //     style={{ width: 'auto', height: 'auto' }}
+                                    // />
