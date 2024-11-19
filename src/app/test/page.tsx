@@ -55,16 +55,16 @@ export default function Page(){
                 {loading ? (
                     <p>Loading</p>
                 ) : (
-                    <>
-                        <div className='flex justify-center m-5'>
+                    <div className='flex flex-col justify-center items-center'>
+                        <div className='m-5'>
                             <h1>파일을 올려주세요</h1>
                         </div>
                         <input className="block" type="file" onChange={handleFileChange} />
-                        <div className='flex justify-center'>
+                        <div className=''>
                             <button className="border-solid border-[1px] m-5 p-5" onClick={handleFileUpload}>Upload</button>
                         </div>
                         <p>{uploadStatus}</p>
-                    </>
+                    </div>
                 )}
             </div>
 

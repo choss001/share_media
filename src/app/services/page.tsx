@@ -39,20 +39,18 @@ export default function Page(){
             <div className='my-[60px]'>
                 <div className='grid grid-cols-3 gap-4'>
                     {mediaList.map((temp) => (
-                        <div key={temp.id} className='border-solid border-slate-100 border-[1px] p-2 flex flex-col'> 
+                        <div key={temp.id} className='border-solid border-slate-100 border-[1px] p-2'> 
                             <p className='whitespace-nowrap hidden md:block'>File Name: {temp.fileName}</p>
-                                <div className='flex grow justify-center items-center '>
-                                    <Link
-                                        href={`/test/mediaTest/${temp.id}`}>
-                                        <Image 
-                                            src={temp.image ? `data:image/png;base64,${temp.image}` : '/no_image.webp'}
-                                            alt="nothing"
-                                            width={100}
-                                            height={100}
-                                            style={{ width: '100%', height: 'auto' }}
-                                        />
-                                    </Link>
-                                </div>
+                                <Link
+                                    href={`/test/mediaTest/${temp.id}`}>
+                                    <Image 
+                                        src={temp.image ? `data:image/png;base64,${temp.image}` : '/no_image.webp'}
+                                        alt="nothing"
+                                        width={100}
+                                        height={100}
+                                        style={{ width: 'auto', height: 'auto' }}
+                                    />
+                                </Link>
                         </div>
 
                     ))}

@@ -33,7 +33,7 @@ export default function RootLayout({
         <div className="h-screen">
           <HeaderMobile></HeaderMobile>
           <Header></Header>
-          <div className="flex items-center justify-center" style={{ height: 'calc(100vh - 50px)' }}>
+          <div className="" style={{ height: 'calc(100vh - 50px)' }}>
             {children}
           </div>
         </div>
