@@ -51,7 +51,6 @@ export default function Page(){
                                         height={100}
                                         style={{ width: '100%', height: 'auto' }}
                                     />
-                                    {` this it url!!! why not work !! ${apiUrl}/${temp.thumbnailName}`}
                                 </Link>
                         </div>
                     ))}
