@@ -33,10 +33,15 @@ export default function Page(){
             });
 
             if (response.ok) {
-                const downloadUrl = await response.text();
-                setUploadStatus(`File uploaded successfully! Access it here: ${downloadUrl}`);
+                const message = await response.text();
+                if (message == "SUCCESS") {
+                    router.push('/services'); // Replace '/media-list' with the actual list page path
+
+                }else{
+                    setUploadStatus(`${message}`);
+                    setLoading(false);
+                }
                 
-                router.push('/services'); // Replace '/media-list' with the actual list page path
             } else {
                 setUploadStatus("Failed to upload file.");
 
@@ -53,7 +58,7 @@ export default function Page(){
         <>
             <div className='my-[60px]'>
                 {loading ? (
-                    <p>Loading</p>
+                    <div className='flex justify-center items-center h-full'>Loading</div>
                 ) : (
                     <div className='flex flex-col justify-center items-center'>
                         <div className='m-5'>
