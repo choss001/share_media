@@ -7,8 +7,7 @@ export default function VideoPage({ params}: {params: {id: string}}) {
   if (!id) return <p>Loading video...</p>;
 
   return (
-    <div>
-      <h1>Streaming Video ID: {id}</h1>
+    <div className="flex justify-center items-center h-full">
       <VideoPlayer videoId={id} />
     </div>
   );
