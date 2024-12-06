@@ -21,6 +21,11 @@ const HeaderMobile = () => {
                 href="/test">
                 <div className="flex justify-center">upload</div>
             </Link>
+            <Link
+                className="flex-auto"
+                href="/signin">
+                <div className="flex justify-center">sign in</div>
+            </Link>
         </div>
     )
 

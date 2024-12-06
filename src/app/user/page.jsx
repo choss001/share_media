@@ -21,6 +21,8 @@ export default function User(){
         if (res.ok) {
             const text = await res.text()
             setContent(text)
+        }else{
+            router.push('/signin')
         }
     }
 
