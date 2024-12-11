@@ -41,6 +41,9 @@ export default function SignIn(){
             alert('Bad credentials')
         }
     }
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') handleSubmit();
+    }
 
     return (
             <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-full p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
@@ -53,6 +56,7 @@ export default function SignIn(){
                             placeholder='username'
                             value={state.username}
                             onChange={handleChange}
+                            onKeyDown={handleKeyDown}
                         />
                         <input 
                             className='text-center'
@@ -61,6 +65,7 @@ export default function SignIn(){
                             placeholder='password'
                             value={state.password}
                             onChange={handleChange}
+                            onKeyDown={handleKeyDown}
                         />
                         <button 
                             className=''
