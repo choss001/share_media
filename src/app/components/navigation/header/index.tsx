@@ -1,15 +1,67 @@
 'use client'
 import React from "react";
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import Link from "next/link";
  
+interface Profile{
+    username: string;
+    email: string;
+    [key: string]: any;
+}
 
 const Header = () => {
     const router = useRouter();
+    const [profile, setProfile] = useState(null);
     const logout = () => {
         localStorage.removeItem("token")
         router.push('/'); // Replace '/media-list' with the actual list page path
     }
+
+    useEffect(() => {
+        fetchProfile()
+    }, [])
+    const fetchProfile = async (): Promise<void> => {
+        try{
+            const token = localStorage.getItem("token");
+            console.log(`token : ${token}`)
+            if (!token) {
+                console.error("No token found");
+                router.push("/");
+                return;
+            }
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                        
+                    },
+                }
+            );
+            console.log(`res : ${res.ok}, profile : ${profile}`)
+            if (res.ok) {
+                const json = await res.json()
+                setProfile(json)
+            }
+
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        }
+    };
+    // async function fetchProfile() {
+    //     const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`,{
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Authorization": "Bearer " + localStorage.getItem("token")
+    //         }
+    //     })
+    //     if (res.ok){
+    //         const json = await res.json()
+    //         setProfile(json)
+    //     }
+    // }
     return(
         <div className="justify-center flex border-solid border-b-[1px] h-[50px] items-center hidden md:flex">
             <Link
@@ -31,28 +83,26 @@ const Header = () => {
                 href="/test">
                 <div className="ml-12">upload</div>
             </Link>
-            <Link
-                className=""
-                href="/signin">
-                <div className="ml-12">signin</div>
-            </Link>
-            <Link
-                className=""
-                href="/signup">
-                <div className="ml-12">signup</div>
-            </Link>
+            {profile ? 
+                <div 
+                    className="ml-12"
+                >
+                    <button onClick={logout}>
+                        logout
+                    </button>
+                </div>
+            : 
+                <Link
+                    className=""
+                    href="/signin">
+                    <div className="ml-12">signin</div>
+                </Link> 
+            }
             <Link
                 className=""
                 href="/user">
                 <div className="ml-12">user</div>
             </Link>
-            <div 
-                className="ml-12"
-            >
-                <button onClick={logout}>
-                    logout
-                </button>
-            </div>
         </div>
     )
 
