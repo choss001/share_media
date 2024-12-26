@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { createContext } from 'react';
+import { AuthProvider } from "@/app/context/Authcontext";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/navigation/header";
@@ -16,8 +16,6 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const AuthContext = createContext({})
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,7 +26,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthContext.Provider value='auth'>
+        <AuthProvider>
           <div className="h-screen">
             <HeaderMobile></HeaderMobile>
             <Header></Header>
@@ -36,7 +34,7 @@ export default function RootLayout({
               {children}
             </div>
           </div>
-        </AuthContext.Provider>
+        </AuthProvider>
       </body>
     </html>
   );

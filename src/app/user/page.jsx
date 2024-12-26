@@ -27,14 +27,11 @@ export default function User(){
     }
 
     return (
-            <div className=''>
-                <h1 className=''>
-                    {content && (
-                        <p>{content}</p>
-                    )}
-                </h1>
+            <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-full p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+                <div className="row-start-2">
+                    {content && (<p>{content}</p>)}
+                </div>
             </div>
-
     )
 
 }

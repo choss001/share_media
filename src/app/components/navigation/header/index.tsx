@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import { useAuth } from "@/app/context/Authcontext";
  
 interface Profile{
     username: string;
@@ -13,8 +14,10 @@ interface Profile{
 const Header = () => {
     const router = useRouter();
     const [profile, setProfile] = useState(null);
+    const { isAuthenticated, setAuthenticated } = useAuth();
     const logout = () => {
         localStorage.removeItem("token")
+        setAuthenticated(false);
         router.push('/'); // Replace '/media-list' with the actual list page path
     }
 
@@ -83,7 +86,7 @@ const Header = () => {
                 href="/test">
                 <div className="ml-12">upload</div>
             </Link>
-            {profile ? 
+            {isAuthenticated ? 
                 <div 
                     className="ml-12"
                 >

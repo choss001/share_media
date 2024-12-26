@@ -20,7 +20,17 @@ export default function Page(){
     useEffect(() => {
 
         setLoading(true);
-        fetch(`${apiUrl}/mediaList`)
+        const token = localStorage.getItem("token");
+        console.log(`token service : ${token}`)
+        fetch(`${apiUrl}/mediaList`,
+            {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                        
+                    },
+            }
+        )
         .then((res) => res.json())
         .then((data: MediaItem[]) => {
             setMediaList(data)

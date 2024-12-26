@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import Layout from '../components/layout-authenticated'
+import { useAuth } from '@/app/context/Authcontext'
 
 type StateType = {
     username: string;
@@ -10,6 +11,7 @@ type StateType = {
 
 export default function SignIn(){
     const router = useRouter()
+    const { setAuthenticated } = useAuth();
 
     const [state, setState] = useState<StateType>({
         username: '',
@@ -36,6 +38,7 @@ export default function SignIn(){
             const json = await res.json()
             console.log('token = ', json.token)
             localStorage.setItem('token', json.token)
+            setAuthenticated(true);
             router.push('/')
         } else {
             alert('Bad credentials')
