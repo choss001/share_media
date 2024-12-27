@@ -31,6 +31,9 @@ export default function Page(){
             const response = await fetch(`${apiUrl}/upload/media`, {
                 method: "POST",
                 body: formData,
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
             });
 
             if (response.ok) {

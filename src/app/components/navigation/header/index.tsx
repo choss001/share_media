@@ -47,6 +47,8 @@ const Header = () => {
             if (res.ok) {
                 const json = await res.json()
                 setProfile(json)
+            } else {
+                setAuthenticated(false)
             }
 
         } catch (error) {
@@ -85,6 +87,11 @@ const Header = () => {
                 className=""
                 href="/test">
                 <div className="ml-12">upload</div>
+            </Link>
+            <Link
+                className=""
+                href="/topic">
+                <div className="ml-12">topic</div>
             </Link>
             {isAuthenticated ? 
                 <div 
