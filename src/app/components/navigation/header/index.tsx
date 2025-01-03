@@ -30,7 +30,7 @@ const Header = () => {
             console.log(`token : ${token}`)
             if (!token) {
                 console.error("No token found");
-                router.push("/");
+                //router.push("/");
                 return;
             }
 
