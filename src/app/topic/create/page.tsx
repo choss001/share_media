@@ -83,7 +83,7 @@ export default function CreateTopic() {
             <AiFillAccountBook className="absolute left-3 top-1/2 h-[18px] w-[18px] text-gray-500
               -translate-y-1/2"/>
           </div>
-          <div>
+          <div className="text-red-500">
             {state.errors?.title}
           </div>
           {/* Invoice Amount */}
@@ -99,19 +99,19 @@ export default function CreateTopic() {
               className="peer"
             >
             </input>
-          </div>
-          <div>
-            {state.errors?.content}
+            <div className="text-red-500">
+              {state.errors?.content}
+            </div>
           </div>
         </div>
         <div className="flex justify-end gap-4">
           <Link href="/"></Link>
           <button className="text-white h-10 rounded-lg bg-blue-500 px-4 hover:bg-blue-400">Create text</button>
         </div>
-        <div>
+        <div className="text-red-500">
           {state.message}
-          <EditorContent editor={editor} />;
         </div>
+        <EditorContent editor={editor} />;
       </div>
     </form>
   );
