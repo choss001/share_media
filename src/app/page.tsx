@@ -2,10 +2,10 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-full p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div className="row-start-2">
-        개인적인 사이트
+    <div>
+      <div className="h-full w-screen bg-red-50 w-full flex items-center justify-center ">
+        <div className="h-5 w-5 bg-blue-500 flex"></div>
       </div>
-    </div>
+  </div>
   );
 }

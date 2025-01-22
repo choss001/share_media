@@ -1,21 +1,25 @@
 'use client'
+import { useRouter } from 'next/navigation';
 
 export function saveContent(formData: FormData){
     const content = formData.get("content") as string;
+    const router = useRouter();
     if (!content) {
         console.log(`maybe null? : ${content}`)
     }
     console.log(formData.get("content"));
+    console.log(`title!! : ${formData.get("title")}`);
 
-
-    fetchProfile();
-
-    async function fetchProfile() {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap`,{
+    const token = localStorage.getItem('token');
+    console.info('action token ',token);
+    postContent();
+    async function postContent() {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/content`,{
             method: "POST",
             body: JSON.stringify({ 
                 contents: formData.get("content"),
-                test: "wow",
+                title: formData.get("title"),
+                userToken: token,
             }),
             headers: {
                 "Content-Type": "application/json",
@@ -23,10 +27,12 @@ export function saveContent(formData: FormData){
             }
         })
         if (res.ok){
-            const json = await res.json()
-            console.log('wow : ', json)
+            const rawText = await res.text()
+            console.log('wow : ', rawText)
+            //router.push('/topic')
         } else{
-            console.log(res);
+            const rawText = await res.text()
+            alert(`something wrong! ${rawText}`);
         }
     }
 }

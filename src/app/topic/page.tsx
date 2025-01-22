@@ -1,5 +1,17 @@
+'use client';
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+
+interface BoardItem{
+    id: number;
+    title: string;
+    contents: string;
+    createdAt: Date;
+    userName: string;
+}
 
 export default function Home() {
 
@@ -11,9 +23,50 @@ export default function Home() {
         { id: 5, customer: 'James Brown', amount: 450.00, dueDate: '2024-05-25', status: 'Unpaid' },
         ];
 
+    const [profile, setProfile] = useState(null);
+    const router = useRouter();
+    const [boardList, setBoardList] = useState<BoardItem[]>([]);
+
+    //check your are user
+    useEffect(() => {
+        fetchBoard()
+    }, [])
+    const fetchBoard = async (): Promise<void> => {
+        try{
+
+
+          const token = localStorage.getItem("token");
+          fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/board`,
+              {
+                  headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${token}`,
+                      
+                  },
+              }
+          )
+          .then((res) => res.json())
+          .then((data:BoardItem[]) => {
+            setBoardList(data)
+            console.log(data)
+          })
+        } catch (error) {
+            console.error("Error fetching profile:", error);
+        }
+    };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-full p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div className="row-start-2">
+
+    <div className="">
+
+        {boardList.map((temp) => (
+            <div key={temp.id} className="">
+                <div>{temp.title}</div>
+                <div>{temp.userName}</div>
+            </div>
+
+        ))}
+      <div className="">
         <div className="bg-gray-50 p-2 rounded-lg">
             <table className="text-gray-900 min-w-full">
                 <thead className="rounded-lg text-left text-sm">
@@ -59,7 +112,7 @@ export default function Home() {
       </div>
       <div className="row-start-3">
         <Link
-            href={`/topic/create`}>
+            href={`/topic/tiptap`}>
             create
         </Link>
       </div>

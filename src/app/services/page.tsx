@@ -70,22 +70,3 @@ export default function Page(){
         </>
     )
 }
-    /*
-                    <video className='w-[280px] h-[140px]' controls preload="none">
-                        <source src="http://localhost:8080/stream/16" type="video/mp4" />
-                        <track
-                            src="/path/to/captions.vtt"
-                            kind="subtitles"
-                            srcLang="en"
-                            label="English"
-                        />
-                        Your browser does not support the video tag.
-                    </video>
-    */
-                                    // <Image 
-                                    //     src={temp.image ? `data:image/png;base64,${temp.image}` : '/no_image.webp'}
-                                    //     alt="nothing"
-                                    //     width={100}
-                                    //     height={100}
-                                    //     style={{ width: 'auto', height: 'auto' }}
-                                    // />

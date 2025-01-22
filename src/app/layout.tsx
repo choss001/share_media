@@ -27,10 +27,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <div className="h-screen">
+          <div className="min-h-screen bg-gray-50 flex-col flex">
             <HeaderMobile></HeaderMobile>
             <Header></Header>
-            <div className="" style={{ height: 'calc(100vh - 50px)' }}>
+            <div className="justify-center flex flex-1">
+                {/*style={{ height: 'calc(100vh - 50px)' }}*/}
               {children}
             </div>
           </div>
