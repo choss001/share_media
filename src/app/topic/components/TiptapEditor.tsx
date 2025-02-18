@@ -7,38 +7,30 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { useCallback, useState, useRef } from "react";
 import styles from './styles.scss';
+import { z } from 'zod';
+import { uploadImage } from '@/app/topic/utils/uploadImage';
+import { validateFormData } from '@/app/topic/utils/validations';
 
-const uploadImage = async(file: File) => {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/image`, {
-    method: "POST",
-    body: formData,
-  });
-
-  const data = await res.json();
-  console.log(data);
-  console.log(`why!! ${process.env.NEXT_PUBLIC_SPRING_API_URL}/${data.contents}`)
-  return `${process.env.NEXT_PUBLIC_SPRING_API_URL}/${data.contents}`;
+interface TiptapEditorProps{
+  action: (data: FormData) => void;
+  initialTitle?: string;
+  initialContent?: string;
+  id?: number;
 }
 
-export default function TiptapEditor({ action } : { action: (data: FormData) => void}) {
+export default function TiptapEditor({ action, initialTitle = "", initialContent = "", id = 0 } : TiptapEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
+  console.log(`id = ${id}`)
+  console.log(`id type = ${typeof(id)}`);
   const editor = useEditor({
     extensions: [Document, Paragraph, Text, Image.configure({ allowBase64: false }), Dropcursor],
-    content: `
-        <p>This is a basic example of implementing images. Drag to re-order.</p>
-        <img src="https://placehold.co/800x400" />
-        <img src="https://placehold.co/800x400/6A00F5/white" />
-      `,
+    content: initialContent,
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
-      console.log(content);
     },
   });
-
 
   const handleImageUploadButtonClick = () =>{
     fileInputRef.current?.click();
@@ -57,17 +49,32 @@ export default function TiptapEditor({ action } : { action: (data: FormData) => 
     if(url) {
       editor.chain().focus().setImage({ src: url }).run()
     }
-
   }, [editor])
   /* if editor not enough render this code return null
   if (!editor){
     return null
   }
   */
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const validationResult = validateFormData(formData);
+    if(!validationResult.success) {
+      alert(
+        validationResult.error.errors
+          .map((error) => error.message)
+          .join("\n")
+      );
+      return;
+    }
+    action(formData);
+  };
+
   
 
   return (
-    <form action={action}>
+    <form onSubmit={handleSubmit}>
       <div className='p-[1px] bg-gray-500 relative'>
         <div className='rounded-md bg-white w-[50rem] h-full'>
           <div className='p-2 bg-red-50 h-12'>
@@ -76,6 +83,15 @@ export default function TiptapEditor({ action } : { action: (data: FormData) => 
               type="text"
               name="title"
               placeholder='write title'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+
+            <input 
+              className='hidden' 
+              type="number"
+              name="id"
+              value={id ? Number(id) : ''}  // Ensures empty string if id is null/undefined
             />
           </div>
           <div className='flex'>

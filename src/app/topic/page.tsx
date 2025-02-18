@@ -9,8 +9,9 @@ interface BoardItem{
     id: number;
     title: string;
     contents: string;
-    createdAt: Date;
+    createdAt: string;
     userName: string;
+    hits: number;
 }
 
 export default function Home() {
@@ -33,8 +34,6 @@ export default function Home() {
     }, [])
     const fetchBoard = async (): Promise<void> => {
         try{
-
-
           const token = localStorage.getItem("token");
           fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/board`,
               {
@@ -60,9 +59,52 @@ export default function Home() {
     <div className="">
 
         {boardList.map((temp) => (
-            <div key={temp.id} className="">
-                <div>{temp.title}</div>
-                <div>{temp.userName}</div>
+            <div key={temp.id} className="w-[950px] bg-red-50 m-auto">
+                <table className="text-gray-900 min-w-full">
+                    <thead className="rounded-lg text-center text-sm"> 
+                        <tr>
+                            <th scope="col" className="px-4 py-5 font-medium">
+                                Title
+                            </th>
+                            <th scope="col" className="px-4 py-5 font-medium">
+                                User
+                            </th>
+                            <th scope="col" className="px-4 py-5 font-medium">
+                                Createdat
+                            </th>
+                            <th scope="col" className="px-4 py-5 font-medium">
+                                Hits
+                            </th>
+                            <th scope="col" className="px-4 py-5 font-medium">
+                                Edit
+                            </th>
+                            
+                        </tr>
+
+
+                    </thead>
+                    <tbody>
+                            <tr 
+                                className="cursor-pointer hover:bg-gray-200"
+                                onClick={() => window.location.href = '/'}
+                            >
+                                <td className="px-4 py-2">{temp.userName}</td>
+                                <td className="px-4 py-2">{temp.title}</td>
+                                <td className="px-4 py-2">{temp.createdAt}</td>
+                                <td className="px-4 py-2">{temp.hits}</td>
+                                <td className="px-4 py-2 flex items-center justify-center">
+                                    <Link href={`/topic/${temp.id}/edit`}>
+                                        <button 
+                                            className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            Edit
+                                        </button>
+                                    </Link>
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
             </div>
 
         ))}
@@ -112,7 +154,7 @@ export default function Home() {
       </div>
       <div className="row-start-3">
         <Link
-            href={`/topic/tiptap`}>
+            href={`/topic/create`}>
             create
         </Link>
       </div>
