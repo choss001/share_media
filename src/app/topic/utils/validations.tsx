@@ -7,8 +7,6 @@ export const CreateBoardSchema = z.object({
 });
 
 export const validateFormData = (formData: FormData) => {
-  console.log('id~!!!',formData.get('id'));
-  console.log(typeof(formData.get('id')));
   return CreateBoardSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),

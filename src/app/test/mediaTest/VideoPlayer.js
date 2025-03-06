@@ -5,7 +5,6 @@ export default function VideoPlayer({ videoId }) {
   const [loading, setLoading] = useState(false);
 
   const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
-  console.log(`why =!!! `, apiUrl);
   const id = videoId;
 
   useEffect(() => {
@@ -13,14 +12,11 @@ export default function VideoPlayer({ videoId }) {
         .then((res) => res.blob())
         .then((blob) => {
             const url = URL.createObjectURL(blob);
-            console.log("whatis this url : ",url)
         })
         .catch((err) => console.error("Error fetching board List:", err))
 
     const videoElement = videoRef.current;
-    console.log('before loading', loading);
     const handleLoad = () => setLoading(false);
-    console.log('after loading', loading);
     const handleError = () => alert("Failed to load video");
 
     if (videoElement) {

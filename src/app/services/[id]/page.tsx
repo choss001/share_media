@@ -17,7 +17,6 @@ export default function Page({ params }: {params: {id: string}}){
         .then((res) => res.blob())
         .then((blob) => {
             const url = URL.createObjectURL(blob);
-            console.log("whatis this url : ",url)
             setVideoUrl(url);
         })
         .catch((err) => console.error("Error fetching board List:", err))
