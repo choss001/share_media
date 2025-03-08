@@ -1,7 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
-import Layout from '../components/layout-authenticated'
 
 type StateType = {
     username: string;

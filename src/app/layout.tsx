@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { AuthProvider } from "@/app/context/Authcontext";
 import localFont from "next/font/local";
 import "./globals.css";

@@ -5,11 +5,6 @@ import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { useAuth } from "@/app/context/Authcontext";
  
-interface Profile{
-    username: string;
-    email: string;
-    [key: string]: any;
-}
 
 const Header = () => {
     const router = useRouter();

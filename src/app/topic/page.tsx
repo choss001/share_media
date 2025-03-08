@@ -1,8 +1,6 @@
 'use client';
-import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 
 interface BoardItem{
@@ -24,8 +22,6 @@ export default function Home() {
         { id: 5, customer: 'James Brown', amount: 450.00, dueDate: '2024-05-25', status: 'Unpaid' },
         ];
 
-    const [profile, setProfile] = useState(null);
-    const router = useRouter();
     const [boardList, setBoardList] = useState<BoardItem[]>([]);
 
     //check your are user

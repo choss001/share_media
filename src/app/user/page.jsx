@@ -1,7 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import Layout from '../components/layout-authenticated'
 
 export default function User(){
     const [content, setContent] = useState(null)

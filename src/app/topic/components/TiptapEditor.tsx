@@ -7,7 +7,6 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { useCallback, useState, useRef } from "react";
 import styles from './styles.scss';
-import { z } from 'zod';
 import { uploadImage } from '@/app/topic/utils/uploadImage';
 import { validateFormData } from '@/app/topic/utils/validations';
 

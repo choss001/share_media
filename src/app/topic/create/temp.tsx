@@ -1,11 +1,8 @@
 'use client'
-import Image from "next/image";
-import { FaBeer } from 'react-icons/fa';
 import { AiFillAccountBook } from "react-icons/ai";
 import Link from "next/link";
 import { z } from 'zod';
 import { useFormState } from "react-dom";
-import { init } from "next/dist/compiled/webpack/webpack";
 import { redirect } from 'next/navigation';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -47,7 +44,6 @@ export default function CreateTopic() {
   }
   const initialState: State = {errors: {}, message: null,};
   const [state, formAction] = useFormState(createBoardState, initialState);
-  type Board = z.infer<typeof CreateBoardSchema>;
 
   const editor = useEditor({
     extensions: [StarterKit],
