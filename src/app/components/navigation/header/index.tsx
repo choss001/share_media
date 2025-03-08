@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Link from "next/link";
 import { useAuth } from "@/app/context/Authcontext";
+import { WiDayHail } from "react-icons/wi";
  
 
 const Header = () => {
@@ -22,10 +23,7 @@ const Header = () => {
     const fetchProfile = async (): Promise<void> => {
         try{
             const token = localStorage.getItem("token");
-            console.log(`token : ${token}`)
             if (!token) {
-                console.error("No token found");
-                //router.push("/");
                 return;
             }
 
@@ -38,30 +36,15 @@ const Header = () => {
                     },
                 }
             );
-            console.log(`res : ${res.ok}, profile : ${profile}`)
-            if (res.ok) {
-                const json = await res.json()
-                setProfile(json)
-            } else {
-                setAuthenticated(false)
+            if (!res.ok) {
+                throw new Error(`Failed to fetch profile : ${res.status}`);
             }
-
+            const json = await res.json()
+            setProfile(json)
         } catch (error) {
-            console.error("Error fetching profile:", error);
+            setAuthenticated(false)
         }
     };
-    // async function fetchProfile() {
-    //     const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`,{
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Authorization": "Bearer " + localStorage.getItem("token")
-    //         }
-    //     })
-    //     if (res.ok){
-    //         const json = await res.json()
-    //         setProfile(json)
-    //     }
-    // }
     return(
         <div className="justify-center flex border-solid 
             border-b-[1px] h-[50px] items-center hidden md:flex bg-white">

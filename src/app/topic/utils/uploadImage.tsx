@@ -6,6 +6,9 @@ export const uploadImage = async(file: File) => {
     method: "POST",
     body: formData,
   });
+  if(!res.ok){
+    throw new Error(`Failed to upload : ${res.status}`);
+  }
 
   const data = await res.json();
   return `${process.env.NEXT_PUBLIC_SPRING_API_URL}/${data.contents}`;

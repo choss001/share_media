@@ -15,13 +15,11 @@ export default function Page(){
     const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const [mediaList, setMediaList] = useState<MediaItem[]>([]);
     const [loading, setLoading] = useState(false);
-    console.log(`why!!! ${apiUrl}`)
 
     useEffect(() => {
 
         setLoading(true);
         const token = localStorage.getItem("token");
-        console.log(`token service : ${token}`)
         fetch(`${apiUrl}/mediaList`,
             {
                     headers: {
@@ -34,7 +32,6 @@ export default function Page(){
         .then((res) => res.json())
         .then((data: MediaItem[]) => {
             setMediaList(data)
-            console.log(data)
             setLoading(false);
 
         })

@@ -35,7 +35,6 @@ export default function SignIn(){
         })
         if (res.ok) {
             const json = await res.json()
-            console.log('token = ', json.token)
             localStorage.setItem('token', json.token)
             setAuthenticated(true);
             router.push('/')
