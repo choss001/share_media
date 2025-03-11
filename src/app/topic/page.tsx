@@ -109,6 +109,7 @@ export default function Home() {
 
             ))}
         </table>
+        this is pagination test
         <Pagination totalPage={5}/>
         
         <div className="flex items-center justify-center">

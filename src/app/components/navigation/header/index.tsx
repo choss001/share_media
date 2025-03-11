@@ -92,6 +92,11 @@ const Header = () => {
                 href="/user">
                 <div className="ml-12">user</div>
             </Link>
+            <Link
+                className=""
+                href="/llm">
+                <div className="ml-12">llm</div>
+            </Link>
         </div>
     )
 
