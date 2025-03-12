@@ -1,15 +1,13 @@
 'use client'
 import React from "react";
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Link from "next/link";
 import { useAuth } from "@/app/context/Authcontext";
-import { WiDayHail } from "react-icons/wi";
  
 
 const Header = () => {
     const router = useRouter();
-    const [profile, setProfile] = useState(null);
     const { isAuthenticated, setAuthenticated } = useAuth();
     const logout = () => {
         localStorage.removeItem("token")
@@ -40,8 +38,9 @@ const Header = () => {
                 throw new Error(`Failed to fetch profile : ${res.status}`);
             }
             const json = await res.json()
-            setProfile(json)
+            console.log(json)
         } catch (error) {
+            console.log(error)
             setAuthenticated(false)
         }
     };

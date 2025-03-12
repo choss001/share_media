@@ -12,6 +12,7 @@ export default function VideoPlayer({ videoId }) {
         .then((res) => res.blob())
         .then((blob) => {
             const url = URL.createObjectURL(blob);
+            console.log(url)
         })
         .catch((err) => console.error("Error fetching board List:", err))
 
