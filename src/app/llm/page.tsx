@@ -18,7 +18,7 @@ export default function Llm() {
         setLoading(true);
 
         try {
-            const response = await fetch('https://192.168.219.100:8000/chat', {
+            const response = await fetch('https://a31.ddns.net:8000/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question: inputValue })
