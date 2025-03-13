@@ -36,9 +36,10 @@ export default function Llm() {
     };
 
     return (
-        <div className='flex flex-col h-screen w-full bg-gray-100'>
-            <header className='w-full py-4 bg-white shadow-md text-center font-semibold text-xl'>
-                Chat with AI
+        <div className='flex flex-col w-full bg-gray-100'
+            style={{ height: 'calc(100vh - 50px)' }}
+        >
+            <header className='w-full py-4 bg-white shadow-md text-center font-semibold text-xl'> Chat with AI
             </header>
             
             <div className='flex-1 overflow-y-auto p-4 space-y-3'>
