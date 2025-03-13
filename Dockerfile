@@ -16,6 +16,5 @@ COPY . .
 RUN npm run build
 
 # Start Next.js
-CMD ["npm", "run", "build"]
 CMD ["npm", "start"]
 
