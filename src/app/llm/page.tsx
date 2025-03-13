@@ -18,13 +18,14 @@ export default function Llm() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8080/api/chat', {
+            const response = await fetch('https://192.168.219.100:8000/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: inputValue })
+                body: JSON.stringify({ question: inputValue })
             });
             
             const data = await response.json();
+            console.log(data)
             setMessages((prev) => [...prev, { text: data.response, sender: 'ai' }]);
         } catch (error) {
             console.error('Error fetching response:', error);
