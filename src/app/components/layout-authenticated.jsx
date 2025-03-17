@@ -7,22 +7,21 @@ export default function LayoutAuthenticated(props){
     const router = useRouter();
 
     useEffect(() => {
-        fetchProfile()
-    }, [])
-    async function fetchProfile() {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`,{
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token")
+        async function fetchProfile() {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`,{
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
+            if (res.ok){
+                const json = await res.json()
+                setProfile(json)
+            } else {
+                router.push("/signin")
             }
-        })
-        if (res.ok){
-            const json = await res.json()
-            setProfile(json)
-        } else {
-            router.push("/signin")
         }
-    }
+    }, [fetchProfile])
 
     function logout() {
         localStorage.removeItem("token")
