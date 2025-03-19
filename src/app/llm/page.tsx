@@ -1,10 +1,18 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import LoadingDots from '../components/LoadingDots';
+import { DiVim } from 'react-icons/di';
 
 export default function Llm() {
     const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'ai' }[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
+    const messageEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Scroll to the bottom when new messages are added
+        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -12,7 +20,7 @@ export default function Llm() {
 
         const userMessage = { text: inputValue, sender: 'user' };
         //setMessages((prev) => [...prev, userMessage]);
-        setMessages((prev) => [...prev, { text: userMessage.text, sender: 'ai' as const }]);
+        setMessages((prev) => [...prev, { text: userMessage.text, sender: 'user' as const }]);
 
         setInputValue('');
         setLoading(true);
@@ -36,22 +44,28 @@ export default function Llm() {
     };
 
     return (
-        <div className='flex flex-col w-full bg-gray-100'
-            style={{ height: 'calc(100vh - 50px)' }}
+        <div className='flex flex-col w-full bg-gray-100 items-center'
+            style={{ height: 'calc(100dvh - 50px)' }}
         >
-            <header className='w-full py-4 bg-white shadow-md text-center font-semibold text-xl'> Chat with AI
-            </header>
-            
-            <div className='flex-1 overflow-y-auto p-4 space-y-3'>
+            {messages  != null && messages.length > 0 ?
+             <div>somthing in here</div>: <div>nothing</div>
+            }
+            <div className='flex-1 flex flex-col overflow-y-auto p-4 space-y-3 max-w-[48rem] w-full'>
                 {messages.map((msg, index) => (
-                    <div key={index} className={`max-w-xs p-3 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white self-end' : 'bg-gray-200 text-black self-start'}`}> 
+                    <div key={index} className={`max-w-xs p-3 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-200 text-black'}`}> 
                         {msg.text}
                     </div>
                 ))}
-                {loading && <div className='text-gray-500 self-start'>Typing...</div>}
+
+                {loading && 
+                    <div className='h-full text-gray-500 items-center flex justify-center'> 
+                        <LoadingDots/> 
+                    </div>
+                }
+                <div ref={messageEndRef} />
             </div>
             
-            <div className='w-full p-4 bg-white border-t flex items-center'>
+            <div className='max-w-[48rem] w-full p-4 bg-white border-t flex items-center rounded-full'>
                 <form onSubmit={handleSubmit} className='flex flex-1 items-center border rounded-full px-4 py-2 bg-gray-50 focus-within:ring-2 focus-within:ring-blue-500'>
                     <input
                         type='text'
@@ -61,7 +75,7 @@ export default function Llm() {
                         className='flex-1 outline-none bg-transparent text-lg'
                     />
                     <button type='submit' className='ml-2 w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800' disabled={loading}>
-                        {loading ? '⏳' : '👉'}
+                        {loading ? '⏳' : '✍'}
                     </button>
                 </form>
             </div>

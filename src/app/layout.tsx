@@ -26,7 +26,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <div className="min-h-screen bg-gray-50 flex-col flex">
+          <div className="bg-gray-50 flex-col flex">
             <HeaderMobile></HeaderMobile>
             <Header></Header>
             <div className="justify-center flex flex-1">

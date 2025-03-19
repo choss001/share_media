@@ -12,6 +12,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      animation: {
+        bounceDots: "bounceDots 1.5s infinite ease-in-out",
+      },
+      keyframes: {
+        bounceDots: {
+          "0%, 80%, 100%": { transform: "scale(0)", opacity: "0.3" },
+          "40%": { transform: "scale(1)", opacity: "1" },
+        },
+      },
     },
   },
   plugins: [],

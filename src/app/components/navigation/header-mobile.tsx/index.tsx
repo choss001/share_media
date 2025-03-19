@@ -23,8 +23,8 @@ const HeaderMobile = () => {
             </Link>
             <Link
                 className="flex-auto"
-                href="/signin">
-                <div className="flex justify-center">sign in</div>
+                href="/llm">
+                <div className="flex justify-center">chat with ai</div>
             </Link>
         </div>
     )
