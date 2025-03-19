@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
 import LoadingDots from '../components/LoadingDots';
-import { DiVim } from 'react-icons/di';
 
 export default function Llm() {
     const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'ai' }[]>([]);
