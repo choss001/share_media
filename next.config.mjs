@@ -14,6 +14,11 @@ const nextConfig = {
                 port: '8090',
                 pathname: '/**',
             },
+            {
+                protocol: "https",
+                hostname: "a31.ddns.net",
+                port: "8090",
+            },
         ],
     },   
 };
