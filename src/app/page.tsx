@@ -8,7 +8,7 @@ export default function Home() {
             {/* Main Content */}
             <main className="flex flex-col items-center justify-center flex-1 text-center p-6 mt-10 md:mt-0">
                 <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl">
-                    Welcome to Seongsik's Website
+                    Welcome to Seongsik&rsquo;s Website
                 </h1>
                 <p className="mt-4 text-lg text-gray-700 max-w-2xl">
                     Explore powerful AI features, media tools, and more. Start your journey today!
