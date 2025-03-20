@@ -71,7 +71,7 @@ const Header = () => {
                     <div>User</div>
                 </Link> */}
                 <Link href="/llm">
-                    <div>LLM</div>
+                    <div>Chat with AI</div>
                 </Link>
             </div>
         </div>

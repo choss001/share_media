@@ -1,70 +1,70 @@
-'use client'
-import { useEffect, useState} from 'react';
-import Image from 'next/image'
+'use client';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 
-interface MediaItem{
+interface MediaItem {
     id: string;
     fileName: string;
     image: Uint8Array | null;
     thumbnailName: string;
 }
 
-export default function Page(){
-
+export default function Page() {
     const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const [mediaList, setMediaList] = useState<MediaItem[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
-        setLoading(true);
-        const token = localStorage.getItem("token");
-        fetch(`${apiUrl}/mediaList`,
-            {
+        const fetchMediaList = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const res = await fetch(`${apiUrl}/mediaList`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
-                        
                     },
-            }
-        )
-        .then((res) => res.json())
-        .then((data: MediaItem[]) => {
-            setMediaList(data)
-            setLoading(false);
+                });
 
-        })
-        .catch((err) => console.error("Error fetching board List:", err))
+                if (!res.ok) {
+                    throw new Error("Failed to fetch media list");
+                }
+
+                const data: MediaItem[] = await res.json();
+                setMediaList(data);
+            } catch (err) {
+                console.error("Error fetching media list:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchMediaList();
     }, [apiUrl]);
 
-
-    return(
-        <>
+    return (
+        <div className="my-16 px-4">
             {loading ? (
-                    <div className='flex justify-center items-center h-full'>Loading</div>
-            ): (
-            <div className='my-[60px]'>
-                <div className='grid grid-cols-3 gap-4'>
-                    {mediaList.map((temp) => (
-                        <div key={temp.id} className='border-solid border-slate-100 border-[1px] p-2'> 
-                            <p className='whitespace-nowrap hidden md:block'>File Name: {temp.fileName}</p>
-                                <Link
-                                    href={`/test/mediaTest/${temp.id}`}>
-                                    <Image 
-                                        src={temp.thumbnailName ? `${apiUrl}/${temp.thumbnailName}` : '/no_image.webp'}
-                                        alt="nothing"
-                                        width={100}
-                                        height={100}
-                                        style={{ width: '100%', height: 'auto' }}
-                                    />
-                                </Link>
-                                {apiUrl}/{temp.thumbnailName}
+                <div className="flex justify-center items-center h-screen text-lg font-semibold text-gray-600">
+                    Loading...
+                </div>
+            ) : (
+                <div className="columns-3 gap-8">
+                    {mediaList.map((item) => (
+                        <div key={item.id} className="border border-gray-300 p-4 rounded-lg shadow-sm bg-white mb-9">
+                            <Link href={`/test/mediaTest/${item.id}`} className="block">
+                                <Image
+                                    src={item.thumbnailName ? `${apiUrl}/${item.thumbnailName}` : '/no_image.webp'}
+                                    alt={item.fileName || "No image"}
+                                    width={200}
+                                    height={200}
+                                    className="w-full h-auto rounded-md"
+                                />
+                            </Link>
                         </div>
                     ))}
                 </div>
-            </div>
             )}
-        </>
-    )
+        </div>
+    );
 }
