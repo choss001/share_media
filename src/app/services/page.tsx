@@ -51,7 +51,7 @@ export default function Page() {
             ) : (
                 <div className="columns-3 gap-8">
                     {mediaList.map((item) => (
-                        <div key={item.id} className="border border-gray-300 p-4 rounded-lg shadow-sm bg-white mb-9">
+                        <div key={item.id} className="border border-gray-300 p-4 rounded-lg shadow-sm bg-white mb-8">
                             <Link href={`/test/mediaTest/${item.id}`} className="block">
                                 <Image
                                     src={item.thumbnailName ? `${apiUrl}/${item.thumbnailName}` : '/no_image.webp'}

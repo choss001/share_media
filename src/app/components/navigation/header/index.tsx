@@ -41,38 +41,42 @@ const Header = () => {
     }, []);
 
     return (
-        <div className="hidden md:flex justify-center border-b border-gray-300 h-[50px] bg-white fixed z-10 w-full">
-            <div className="flex items-center space-x-12">
-                <Link href="https://github.com/choss001">
-                    <div>성식이</div>
-                </Link>
-                <Link href="/">
-                    <div>Main</div>
-                </Link>
-                <Link href="/services">
-                    <div>Services</div>
-                </Link>
-                {/* <Link href="/test">
-                    <div>Upload</div>
-                </Link> */}
-                {/* <Link href="/topic">
-                    <div>Topic</div>
-                </Link> */}
-                {isAuthenticated ? (
-                    <button onClick={logout} className="text-red-500">
-                        Logout
-                    </button>
-                ) : (
-                    <Link href="/signin">
-                        <div>Sign In</div>
+        <div className="hidden md:flex border-b border-gray-300 h-[50px] bg-white fixed z-10 w-full items-center justify-center">
+            <div className="w-[55em] flex">
+                <div className='mr-auto'>
+                    <Link href="https://github.com/choss001">
+                        <div>성식이</div>
                     </Link>
-                )}
-                {/* <Link href="/user">
-                    <div>User</div>
-                </Link> */}
-                <Link href="/llm">
-                    <div>Chat with AI</div>
-                </Link>
+                </div>
+                <div className='ml-auto flex space-x-12'>
+                    <Link href="/">
+                        <div>Main</div>
+                    </Link>
+                    <Link href="/services">
+                        <div>Services</div>
+                    </Link>
+                    {/* <Link href="/test">
+                        <div>Upload</div>
+                    </Link> */}
+                    {/* <Link href="/topic">
+                        <div>Topic</div>
+                    </Link> */}
+                    {isAuthenticated ? (
+                        <button onClick={logout} className="text-red-500">
+                            Logout
+                        </button>
+                    ) : (
+                        <Link href="/signin">
+                            <div>Sign In</div>
+                        </Link>
+                    )}
+                    {/* <Link href="/user">
+                        <div>User</div>
+                    </Link> */}
+                    <Link href="/llm">
+                        <div>Chat with AI</div>
+                    </Link>
+                </div>
             </div>
         </div>
     );
