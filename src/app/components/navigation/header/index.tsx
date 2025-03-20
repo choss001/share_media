@@ -52,12 +52,12 @@ const Header = () => {
                 <Link href="/services">
                     <div>Services</div>
                 </Link>
-                <Link href="/test">
+                {/* <Link href="/test">
                     <div>Upload</div>
-                </Link>
-                <Link href="/topic">
+                </Link> */}
+                {/* <Link href="/topic">
                     <div>Topic</div>
-                </Link>
+                </Link> */}
                 {isAuthenticated ? (
                     <button onClick={logout} className="text-red-500">
                         Logout
@@ -67,9 +67,9 @@ const Header = () => {
                         <div>Sign In</div>
                     </Link>
                 )}
-                <Link href="/user">
+                {/* <Link href="/user">
                     <div>User</div>
-                </Link>
+                </Link> */}
                 <Link href="/llm">
                     <div>LLM</div>
                 </Link>
