@@ -28,11 +28,13 @@ export default function Page(){
         formData.append("file", selectedFile);
 
         try {
+            console.log(localStorage.getItem("tokek")+ 'test!!!')
+            console.log(`${apiUrl}/upload/media`)
             const response = await fetch(`${apiUrl}/upload/media`, {
                 method: "POST",
                 body: formData,
                 headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("token")
+                    "Authorization": "Bearer " + localStorage.getItem("token"),
                 },
             });
 
@@ -54,7 +56,7 @@ export default function Page(){
         } catch (error) {
             setLoading(false);
             console.error("Error uploading file:", error);
-            setUploadStatus("Error uploading file.");
+            setUploadStatus("Error uploading file."+ error);
         }
     };
 
@@ -66,6 +68,7 @@ export default function Page(){
                 ) : (
                     <div className='flex flex-col justify-center items-center'>
                         <div className='m-5'>
+                            {apiUrl}/upload/media
                             <h1>파일을 올려주세요</h1>
                         </div>
                         <input className="block" type="file" onChange={handleFileChange} />

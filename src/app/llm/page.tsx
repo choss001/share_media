@@ -40,7 +40,7 @@ export default function Llm() {
     };
 
     return (
-        <div className="flex flex-col w-full bg-gray-100 items-center" style={{ height: 'calc(100dvh - 50px)' }}>
+        <div className="flex flex-col w-full bg-gray-100 items-center h-100dvh">
             {messages.length > 0 ? <ChatWindow messages={messages} loading={loading} messageEndRef={messageEndRef} /> : <WelcomeMessage />}
             <ChatInput inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} loading={loading} />
         </div>
@@ -51,7 +51,7 @@ function ChatWindow({ messages, loading, messageEndRef }
     : { messages: { text: string; sender: 'user' | 'ai' }[], loading: boolean, messageEndRef: React.RefObject<HTMLDivElement> }) {
     return (
         <div className="w-full flex flex-col flex-1 items-center">
-            <div className="flex-1 flex flex-col overflow-y-auto p-4 space-y-3 max-w-[48rem] w-full">
+            <div className="flex-1 flex flex-col overflow-y-auto p-4 space-y-3 max-w-[48rem] w-full mt-[3rem]">
                 {messages.map((msg, index) => (
                     <div key={index} className={`max-w-xs p-3 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-200 text-black'}`}>
                         {msg.text}
@@ -71,7 +71,7 @@ function ChatWindow({ messages, loading, messageEndRef }
 function WelcomeMessage() {
     return (
         <div className="w-full flex flex-col items-center h-[45dvh] justify-end">
-            <div className="mb-6 text-3xl">조성식에 대한 것을 물어보세요!</div>
+            <div className="mb-6 text-2xl">조성식에 대한 것을 물어보세요!</div>
         </div>
     );
 }
