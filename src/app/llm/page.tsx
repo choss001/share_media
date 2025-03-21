@@ -50,8 +50,8 @@ export default function Llm() {
 function ChatWindow({ messages, loading, messageEndRef }
     : { messages: { text: string; sender: 'user' | 'ai' }[], loading: boolean, messageEndRef: React.RefObject<HTMLDivElement> }) {
     return (
-        <div className="w-full flex flex-col flex-1 items-center">
-            <div className="flex-1 flex flex-col overflow-y-auto p-4 space-y-3 max-w-[48rem] w-full mt-[3rem]">
+        <div className="w-full flex flex-col flex-1 items-center overflow-y-auto">
+            <div className="flex-1 flex flex-col p-4 space-y-3 max-w-[48rem] w-full mt-[3rem]">
                 {messages.map((msg, index) => (
                     <div key={index} className={`max-w-xs p-3 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-200 text-black'}`}>
                         {msg.text}
