@@ -49,9 +49,9 @@ export default function Page() {
                     Loading...
                 </div>
             ) : (
-                <div className="columns-2 gap-1 md:columns-3 gap-8">
+                <div className="columns-3 gap-0 md:columns-3 md:gap-8">
                     {mediaList.map((item) => (
-                        <div key={item.id} className="border border-gray-300 p-4 rounded-lg shadow-sm bg-white mb-1 md:mb-8">
+                        <div key={item.id} className="mb-0 md:border md:border-gray-300 p-1 md:p-4 rounded-lg shadow-sm bg-white md:mb-8">
                             <Link href={`/test/mediaTest/${item.id}`} className="block">
                                 <Image
                                     src={item.thumbnailName ? `${apiUrl}/${item.thumbnailName}` : '/no_image.webp'}
