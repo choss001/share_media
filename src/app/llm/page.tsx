@@ -40,7 +40,7 @@ export default function Llm() {
     };
 
     return (
-        <div className="flex flex-col w-full bg-gray-100 items-center h-100dvh">
+        <div className="flex flex-col w-full bg-gray-100 items-center h-dvh">
             {messages.length > 0 ? <ChatWindow messages={messages} loading={loading} messageEndRef={messageEndRef} /> : <WelcomeMessage />}
             <ChatInput inputValue={inputValue} setInputValue={setInputValue} handleSubmit={handleSubmit} loading={loading} />
         </div>
@@ -53,7 +53,7 @@ function ChatWindow({ messages, loading, messageEndRef }
         <div className="w-full flex flex-col flex-1 items-center overflow-y-auto">
             <div className="flex-1 flex flex-col p-4 space-y-3 max-w-[48rem] w-full mt-[3rem]">
                 {messages.map((msg, index) => (
-                    <div key={index} className={`max-w-xs p-3 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-200 text-black'}`}>
+                    <div key={index} className={`max-w-xs md:max-w-[40em] p-3 rounded-lg break-words ${msg.sender === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-200 text-black'}`}>
                         {msg.text}
                     </div>
                 ))}

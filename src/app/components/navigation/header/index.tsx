@@ -55,16 +55,18 @@ const Header = () => {
                     <Link href="/services">
                         <div>Services</div>
                     </Link>
-                    {/* <Link href="/test">
-                        <div>Upload</div>
-                    </Link> */}
                     {/* <Link href="/topic">
                         <div>Topic</div>
                     </Link> */}
                     {isAuthenticated ? (
-                        <button onClick={logout} className="text-red-500">
-                            Logout
-                        </button>
+                        <div className='flex space-x-12'>
+                            <button onClick={logout} className="text-red-500">
+                                Logout
+                            </button>
+                            <Link href="/test">
+                                <div>Upload</div>
+                            </Link>
+                        </div>
                     ) : (
                         <Link href="/signin">
                             <div>Sign In</div>

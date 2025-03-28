@@ -3,6 +3,7 @@ import { useEffect, useState} from 'react';
 import { useRouter } from 'next/navigation';
 import { DeleteMedia } from '@/app/ui/services/button';
 
+
 //const apiUrl = process.env.SPRING_API_URL;
 
 export default function Page({ params }: {params: {id: string}}){

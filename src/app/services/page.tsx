@@ -24,6 +24,7 @@ export default function Page() {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
+                    credentials: "omit",
                 });
 
                 if (!res.ok) {

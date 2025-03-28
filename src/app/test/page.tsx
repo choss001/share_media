@@ -49,6 +49,7 @@ export default function Page(){
                 }
                 
             } else {
+                setLoading(false);
                 setUploadStatus("Failed to upload file.");
 
 

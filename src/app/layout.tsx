@@ -26,10 +26,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <div className="bg-gray-50 flex-col flex h-dvh relative">
+          <div className="bg-gray-50 flex-col flex relative h-full">
             <HeaderMobile></HeaderMobile>
             <Header></Header>
-            <div className="justify-center flex flex-1 h-full relative top-0">
+            <div className="justify-center flex flex-1 h-full">
                 {/*style={{ height: 'calc(100vh - 50px)' }}*/}
               {children}
             </div>
