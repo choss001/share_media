@@ -25,6 +25,7 @@ export default function VideoPage({ params }: { params: { id: string } }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include"
       });
 
       if (response.ok) {

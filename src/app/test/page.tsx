@@ -1,16 +1,19 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/app/context/Authcontext';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/context/Authcontext";
+import axios from "axios";
 
 export default function Page() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [uploadStatus, setUploadStatus] = useState("");
     const [loading, setLoading] = useState(false);
-    const [title, setTitle] = useState(""); // For the title
-    const [content, setContent] = useState(""); // For the content
-    const [publicYn, setPublicYn] = useState("Y"); // For private/public publicYn
+    const [progress, setProgress] = useState(0);
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [publicYn, setPublicYn] = useState("Y");
+
     const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const router = useRouter();
     const { isAuthenticated } = useAuth();
@@ -30,31 +33,33 @@ export default function Page() {
         }
 
         setLoading(true);
+        setProgress(0);
+        setUploadStatus("");
+
         const formData = new FormData();
         formData.append("file", selectedFile);
-        formData.append("title", title); // Append title
-        formData.append("content", content); // Append content
-        formData.append("publicYn", publicYn); // Append publicYn (public/private)
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("publicYn", publicYn);
 
         try {
-            const response = await fetch(`${apiUrl}/upload/media`, {
-                method: "POST",
-                body: formData,
+            const response = await axios.post(`${apiUrl}/upload/media`, formData, {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                 },
-                credentials: "include",
+                withCredentials: true, // Important for session cookies
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.total) {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setProgress(percentCompleted);
+                    }
+                },
             });
 
-            if (response.ok) {
-                const message = await response.text();
-                if (message === "SUCCESS") {
-                    router.push('/services'); 
-                } else {
-                    setUploadStatus(message);
-                }
+            if (response.data === "SUCCESS") {
+                router.push("/services");
             } else {
-                setUploadStatus("Failed to upload file.");
+                setUploadStatus(response.data);
             }
         } catch (error) {
             console.error("Error uploading file:", error);
@@ -110,7 +115,7 @@ export default function Page() {
                     </label>
                 </div>
 
-                {/* publicYn (Private/Public) Radio Buttons */}
+                {/* Public/Private Radio Buttons */}
                 <div className="mb-4">
                     <label className="block text-gray-700 mb-2">Visibility</label>
                     <div className="flex items-center space-x-4">
@@ -142,6 +147,16 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
+
+                {/* Upload Progress Bar */}
+                {progress > 0 && (
+                    <div className="mb-4">
+                        <div className="h-4 bg-gray-200 rounded">
+                            <div className="h-4 bg-blue-500 rounded" style={{ width: `${progress}%` }}></div>
+                        </div>
+                        <p className="text-sm text-center mt-1">{progress}% uploaded</p>
+                    </div>
+                )}
 
                 {/* Upload Button */}
                 <button
