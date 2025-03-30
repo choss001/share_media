@@ -38,6 +38,7 @@ const Header = () => {
                     setAuthenticated(false);
             } catch (error) {
                 setAuthenticated(false);
+                console.log(error)
             }
         };
 

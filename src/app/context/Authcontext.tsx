@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 if (checkAuth.status === 401)
                     setAuthenticated(false);
             } catch (error) {
+                console.log(error);
                 setAuthenticated(false);
             }
         };
