@@ -26,7 +26,6 @@ export default function Home() {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/user`,{
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token")
             }
         })
         if (!res.ok) {

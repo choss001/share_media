@@ -15,7 +15,8 @@ export default function User(){
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("token")
-            }
+            },
+            credentials: "include",
         })
         if (res.ok) {
             const text = await res.text()

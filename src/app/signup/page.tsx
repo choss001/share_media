@@ -4,22 +4,20 @@ import { ChangeEvent, useState } from 'react'
 
 type StateType = {
     username: string;
-    email: string;
     password: string;
 };
 
-export default function Signup(){
+export default function Signup() {
     const router = useRouter()
     const [state, setState] = useState<StateType>({
         username: "",
-        email: "",
         password: "",
     })
 
-    function handleChange(e: ChangeEvent<HTMLInputElement>){
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
-        setState((preState) => ({
-            ...preState,
+        setState((prevState) => ({
+            ...prevState,
             [name]: value
         }))
     }
@@ -33,49 +31,40 @@ export default function Signup(){
             }
         })
         if (res.ok) {
-            alert("user registered success")
+            alert("User registered successfully")
             router.push("/")
-
         }
     }
 
     return (
-            <div className=''>
-                <h1 className=''>Sign Up</h1>
-                <div className=''>
+        <div className='flex justify-center items-center min-h-dvh bg-gray-100 w-[50rem]'>
+            <div className='w-full max-w-md p-6 bg-white rounded-lg shadow-lg'>
+                <h1 className='text-2xl font-bold text-center text-gray-700 mb-6'>Sign Up</h1>
+                <div className='space-y-4'>
                     <input 
-                        className='' 
+                        className='w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' 
                         type='text' 
                         name='username' 
-                        placeholder='username' 
+                        placeholder='Username' 
                         value={state.username}
                         onChange={handleChange}
                     />
                     <input 
-                        className='' 
-                        type='text' 
-                        name='email' 
-                        placeholder='email' 
-                        value={state.email}
-                        onChange={handleChange}
-                    />
-                    <input 
-                        className='' 
+                        className='w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' 
                         type='password' 
                         name='password' 
-                        placeholder='password' 
+                        placeholder='Password' 
                         value={state.password}
                         onChange={handleChange}
                     />
                     <button 
-                        className=''
+                        className='w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300'
                         onClick={handleSubmit}
                     >
                         Submit
                     </button>
-
-
                 </div>
             </div>
+        </div>
     )
 }

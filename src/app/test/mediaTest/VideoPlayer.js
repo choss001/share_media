@@ -8,7 +8,12 @@ export default function VideoPlayer({ videoId }) {
   const id = videoId;
 
   useEffect(() => {
-    fetch(`${apiUrl}/stream/${id}`)
+    fetch(`${apiUrl}/stream/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
         .then((res) => res.blob())
         .then((blob) => {
             const url = URL.createObjectURL(blob);

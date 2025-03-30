@@ -8,7 +8,7 @@ type StateType = {
     password: string;
 };
 
-export default function SignIn(){
+export default function SignIn() {
     const router = useRouter()
     const { setAuthenticated } = useAuth();
 
@@ -18,9 +18,9 @@ export default function SignIn(){
     })
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        const { name, value } =  e.target;
-        setState((preState) => ({
-            ...preState,
+        const { name, value } = e.target;
+        setState((prevState) => ({
+            ...prevState,
             [name]: value
         }))
     }
@@ -31,52 +31,52 @@ export default function SignIn(){
             body: JSON.stringify(state),
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            credentials: "include",
         })
         if (res.ok) {
-            const json = await res.json()
-            localStorage.setItem('token', json.token)
             setAuthenticated(true);
             router.push('/')
         } else {
             alert('Bad credentials')
         }
     }
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') handleSubmit();
     }
 
     return (
-            <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-full p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
-                <h1 className='row-start-2'>
-                    <div className='flex flex-col'>
-                        <input 
-                            className='text-center'
-                            type='text'
-                            name='username'
-                            placeholder='username'
-                            value={state.username}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                        <input 
-                            className='text-center'
-                            type='password'
-                            name='password'
-                            placeholder='password'
-                            value={state.password}
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                        <button 
-                            className=''
-                            onClick={handleSubmit}
-                        >
-                            Submit
-                        </button>
-                    </div>
-                </h1>
+        <div className='flex justify-center items-center min-h-dvh bg-gray-100 p-6 w-[50rem]'>
+            <div className='w-full max-w-md p-8 bg-white rounded-lg shadow-lg'>
+                <h1 className='text-2xl font-bold text-center text-gray-700 mb-6'>Sign In</h1>
+                <div className='space-y-4'>
+                    <input 
+                        className='w-full p-3 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                        type='text'
+                        name='username'
+                        placeholder='Username'
+                        value={state.username}
+                        onChange={handleChange}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <input 
+                        className='w-full p-3 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                        type='password'
+                        name='password'
+                        placeholder='Password'
+                        value={state.password}
+                        onChange={handleChange}
+                        onKeyDown={handleKeyDown}
+                    />
+                    <button 
+                        className='w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-300'
+                        onClick={handleSubmit}
+                    >
+                        Submit
+                    </button>
+                </div>
             </div>
+        </div>
     )
-
 }

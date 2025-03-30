@@ -8,8 +8,18 @@ const Header = () => {
     const router = useRouter();
     const { isAuthenticated, setAuthenticated } = useAuth();
 
-    const logout = () => {
-        localStorage.removeItem('token');
+    const logout = async() => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/auth/logout`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: "include",
+        })
+        if (res.ok){
+            alert('success');
+        }
+
         setAuthenticated(false);
         router.push('/');
     };
@@ -17,28 +27,22 @@ const Header = () => {
     useEffect(() => {
         const fetchProfile = async (): Promise<void> => {
             try {
-                const token = localStorage.getItem('token');
-                if (!token) return;
-
-                const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`, {
+                const checkAuth = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`, {
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
                     },
+                    credentials: 'include',
                 });
-
-                if (!res.ok) throw new Error(`Failed to fetch profile: ${res.status}`);
                 
-                const json = await res.json();
-                console.log(json);
+                if (checkAuth.status === 401)
+                    setAuthenticated(false);
             } catch (error) {
-                console.error(error);
                 setAuthenticated(false);
             }
         };
 
         fetchProfile();
-    }, []);
+    },);
 
     return (
         <div className="hidden md:flex border-b border-gray-300 h-[50px] bg-white fixed z-10 w-full items-center justify-center">
@@ -58,14 +62,15 @@ const Header = () => {
                     {/* <Link href="/topic">
                         <div>Topic</div>
                     </Link> */}
+
+                    <Link href="/test">
+                        <div>Upload</div>
+                    </Link>
                     {isAuthenticated ? (
                         <div className='flex space-x-12'>
                             <button onClick={logout} className="text-red-500">
                                 Logout
                             </button>
-                            <Link href="/test">
-                                <div>Upload</div>
-                            </Link>
                         </div>
                     ) : (
                         <Link href="/signin">

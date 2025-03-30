@@ -15,11 +15,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isAuthenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
-        // Check for the token in localStorage when the app loads
-        const token = localStorage.getItem('token');
-        if (token) {
-            setAuthenticated(true);
-        }
+        // Check for the token in cookie when the app loads
+        const checkAuth = async (): Promise<void> => {
+            try {
+                const checkAuth = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
+                if (checkAuth.ok)
+                    setAuthenticated(true);
+                
+                if (checkAuth.status === 401)
+                    setAuthenticated(false);
+            } catch (error) {
+                setAuthenticated(false);
+            }
+        };
+        checkAuth();
     }, []);
 
     return (
