@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/test/mediaTest/VideoPlayer.js", "**/*.scss"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/test/mediaTest/VideoPlayer.jsx", "**/*.scss"],
   "exclude": ["node_modules"]
 }
