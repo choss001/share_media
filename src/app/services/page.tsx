@@ -62,7 +62,7 @@ export default function Page() {
             const blob = await res.blob();
             const objectUrl = URL.createObjectURL(blob);
 
-            setImageUrls(prev => ({ ...prev, [id]: objectUrl }));
+            setImageUrls(prev => ({ ...prev, [id]: objectUrl}));
         } catch (err) {
             console.error("Error fetching private image:", err);
         }
@@ -76,21 +76,23 @@ export default function Page() {
                         Loading...
                     </div>
                 ) : (
-                    <div className="columns-3 gap-0 md:columns-3 md:gap-8">
+                    <div className="columns-3 gap-0 md:columns-3 md:gap-1">
                         {mediaList.map(({ id, publicYn, thumbnailName, fileName }) => {
                             const isPublic = publicYn === "Y";
                             const thumbnailUrl = isPublic
-                                ? `${apiUrl}/resource/thumbnail/${thumbnailName}`
+                                ? (thumbnailName 
+                                    ? `${apiUrl}/resource/thumbnail/${thumbnailName}` : "/no_image.webp")
                                 : imageUrls[id] || "/no_image.webp"; // Use cached private image URL
 
-                            const containerClass = `mb-0 md:border p-[1px] md:p-4 rounded-lg shadow-sm md:mb-8 
+                            const containerClass = `mb-0 md:border p-[1px] md:p-1 rounded-lg shadow-sm md:mb-1 
                                 ${isPublic ? "md:border-gray-300" : "md:border-black-300 bg-red-950"}`;
 
                             return (
                                 <div key={id} className={containerClass}>
+
                                     <Link href={`/test/mediaTest/${id}`} className="block">
                                         <Image
-                                            src={thumbnailUrl}
+                                            src={thumbnailUrl || "/no_image.webp"}
                                             alt={fileName || "No image"}
                                             width={200}
                                             height={200}
