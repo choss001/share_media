@@ -70,7 +70,7 @@ export default function Page() {
 
     return (
         <div className='min-h-dvh'>
-            <div className="my-16 px-4">
+            <div className="my-16 px-4 md:w-[58rem]">
                 {loading ? (
                     <div className="flex justify-center items-center h-screen text-lg font-semibold text-gray-600">
                         Loading...
@@ -83,13 +83,12 @@ export default function Page() {
                                 ? `${apiUrl}/resource/thumbnail/${thumbnailName}`
                                 : imageUrls[id] || "/no_image.webp"; // Use cached private image URL
 
-                            const containerClass = `mb-0 md:border p-1 md:p-4 rounded-lg shadow-sm md:mb-8 
+                            const containerClass = `mb-0 md:border p-[1px] md:p-4 rounded-lg shadow-sm md:mb-8 
                                 ${isPublic ? "md:border-gray-300" : "md:border-black-300 bg-red-950"}`;
 
                             return (
                                 <div key={id} className={containerClass}>
                                     <Link href={`/test/mediaTest/${id}`} className="block">
-                                    {thumbnailUrl}
                                         <Image
                                             src={thumbnailUrl}
                                             alt={fileName || "No image"}
