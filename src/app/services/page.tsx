@@ -43,6 +43,7 @@ export default function Page() {
         fetchMediaList();
     }, [apiUrl]);
 
+
     const fetchPrivateImage = async (id: string, thumbnailName: string) => {
         try {
             const res = await fetch(`${apiUrl}/private/thumbnail/${thumbnailName}`, {
