@@ -15,25 +15,40 @@ export default function Llm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!inputValue.trim()) return;
-
+    
         const userMessage = { text: inputValue, sender: 'user' } as const;
         setMessages((prev) => [...prev, userMessage]);
-
         setInputValue('');
         setLoading(true);
-
+    
         try {
-            const response = await fetch('https://a31.ddns.net:8000/chat', {
+            const url = 'https://a31.ddns.net/chat'
+            // const url = 'http://localhost:8000/chat'
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ question: inputValue }),
             });
-
-            const data = await response.json();
-            setMessages((prev) => [...prev, { text: data.response, sender: 'ai' }]);
-        } catch (error) {
-            console.error('Error fetching response:', error);
-            setMessages((prev) => [...prev, { text: 'Error retrieving response', sender: 'ai' }]);
+    
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+            let aiMessage = '';
+            setMessages((prev) => [...prev, { text: '', sender: 'ai' }]);
+    
+            while (true) {
+                const { done, value } = await reader!.read();
+                if (done) break;
+                aiMessage += decoder.decode(value, { stream: true });
+    
+                setMessages((prev) => {
+                    const updated = [...prev];
+                    updated[updated.length - 1] = { text: aiMessage, sender: 'ai' };
+                    return updated;
+                });
+            }
+        } catch (err) {
+            console.error(err);
+            setMessages((prev) => [...prev, { text: 'Error streaming response', sender: 'ai' }]);
         } finally {
             setLoading(false);
         }
