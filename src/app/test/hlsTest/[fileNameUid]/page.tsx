@@ -6,7 +6,7 @@ import {useRef, useEffect} from 'react';
 // const source = "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8"
 export default function Home({ params }: {params: {fileNameUid: string}}){
     const fileNameUid = params.fileNameUid;
-    const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
+    // const apiUrl = process.env.NEXT_PUBLIC_SPRING_API_URL;
     const videoRef = useRef<HTMLVideoElement>(null)
     // const source = `${apiUrl}/resource/media/hls/${fileNameUid}/master.m3u8`
     const source = `http://localhost:81/static/hls/${fileNameUid}/master.m3u8`
