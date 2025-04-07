@@ -43,6 +43,7 @@ export default function Page() {
         formData.append("publicYn", publicYn);
 
         try {
+            console.log(`formData ${selectedFile}`)
             const response = await axios.post(`${apiUrl}/upload/media`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",

@@ -26,7 +26,7 @@ export default function SignIn() {
     }
 
     async function handleSubmit() {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/auth/signin`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/auth/signin`, {
             method: 'POST',
             body: JSON.stringify(state),
             headers: {

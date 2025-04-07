@@ -8,6 +8,7 @@ interface MediaItem {
     fileName: string;
     thumbnailName: string;
     publicYn: string;
+    fileNameUid: string;
 }
 
 export default function Page() {
@@ -19,7 +20,7 @@ export default function Page() {
     useEffect(() => {
         const fetchMediaList = async () => {
             try {
-                const res = await fetch(`${apiUrl}/mediaList`, {
+                const res = await fetch(`${apiUrl}/hlsMediaList`, {
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
                 });
@@ -77,24 +78,29 @@ const LoadingIndicator = () => (
     </div>
 );
 
-const MediaGrid = ({ mediaList, imageUrls, apiUrl }: { mediaList: MediaItem[], imageUrls: { [key: string]: string }, apiUrl?: string }) => (
+const MediaGrid = ({ mediaList, imageUrls, apiUrl}:
+     { mediaList: MediaItem[], imageUrls: { [key: string]: string },
+      apiUrl?: string}) => (
     <div className="columns-3 gap-0 md:columns-3 md:gap-1">
-        {mediaList.map(({ id, publicYn, thumbnailName, fileName }) => {
+        {mediaList.map(({ id, publicYn, thumbnailName, fileName, fileNameUid }) => {
             const isPublic = publicYn === "Y";
             const thumbnailUrl = isPublic
                 ? thumbnailName ? `${apiUrl}/resource/thumbnail/${thumbnailName}` : "/no_image.webp"
                 : imageUrls[id] || "/no_image.webp";
 
             return (
-                <MediaItemCard key={id} id={id} fileName={fileName} thumbnailUrl={thumbnailUrl} isPublic={isPublic} />
+                <MediaItemCard key={id} id={id} fileName={fileName}
+                    thumbnailUrl={thumbnailUrl} isPublic={isPublic} fileNameUid={fileNameUid}/>
             );
         })}
     </div>
 );
 
-const MediaItemCard = ({ id, fileName, thumbnailUrl, isPublic }: { id: string; fileName: string; thumbnailUrl: string; isPublic: boolean }) => (
+const MediaItemCard = ({fileName, thumbnailUrl, isPublic, fileNameUid}:
+     { id: string; fileName: string;
+         thumbnailUrl: string; isPublic: boolean; fileNameUid: string; }) => (
     <div className={`mb-0 md:border p-[1px] md:p-1 rounded-lg shadow-sm md:mb-1 ${isPublic ? "md:border-gray-300" : "md:border-black-300 bg-red-950"}`}>
-        <Link href={`/test/mediaTest/${id}`} className="block">
+        <Link href={`/test/mediaTest/${fileNameUid}`} className="block">
             <Image
                 src={thumbnailUrl || "/no_image.webp"}
                 alt={fileName || "No image"}
