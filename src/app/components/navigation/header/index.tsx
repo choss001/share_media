@@ -9,7 +9,7 @@ const Header = () => {
     const { isAuthenticated, setAuthenticated } = useAuth();
 
     const logout = async() => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/auth/logout`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/auth/logout`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const Header = () => {
     useEffect(() => {
         const fetchProfile = async (): Promise<void> => {
             try {
-                const checkAuth = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`, {
+                const checkAuth = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/test/profile`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
