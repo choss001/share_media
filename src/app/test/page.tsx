@@ -55,6 +55,7 @@ export default function Page() {
                         setProgress(percentCompleted);
                     }
                 },
+                timeout: 6000000,
             });
 
             if (response.data === "SUCCESS") {
