@@ -26,9 +26,7 @@ export default function Tiptap() {
 
   return (
     <div className=''>
-      <div className=''>
-        <TiptapEditor action={handleSaveContent}/>
-      </div>
+      <TiptapEditor action={handleSaveContent}/>
     </div>
   );
 }

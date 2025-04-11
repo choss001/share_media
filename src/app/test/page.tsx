@@ -65,7 +65,7 @@ export default function Page() {
             }
         } catch (error) {
             console.error("Error uploading file:", error);
-            setUploadStatus("Error uploading file.");
+            setUploadStatus(`Error uploading file. ${error}`);
         } finally {
             setLoading(false);
         }

@@ -34,11 +34,11 @@ const Header = () => {
                     credentials: 'include',
                 });
                 
-                if (checkAuth.status === 401)
+                if (checkAuth.status === 401 || checkAuth.status === 502)
                     setAuthenticated(false);
             } catch (error) {
                 setAuthenticated(false);
-                console.log(error)
+                console.log(error);
             }
         };
 
@@ -66,6 +66,9 @@ const Header = () => {
 
                     <Link href="/test">
                         <div>Upload</div>
+                    </Link>
+                    <Link href="/topic">
+                        <div>Topic</div>
                     </Link>
                     {isAuthenticated ? (
                         <div className='flex space-x-12'>

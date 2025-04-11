@@ -7,9 +7,11 @@ import Image from '@tiptap/extension-image'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import { useCallback, useState, useRef } from "react";
-import styles from './styles.scss';
-import { uploadImage } from '@/app/topic/utils/uploadImage';
+import styles from './styles.module.scss';
 import { validateFormData } from '@/app/topic/utils/validations';
+import Toolbar from '@/app/topic/components/Toolbar'
+import StarterKit from '@tiptap/starter-kit'
+import { Underline } from '@tiptap/extension-underline';
 
 interface TiptapEditorProps{
   action?: (data: FormData) => void;
@@ -30,7 +32,9 @@ export default function TiptapEditor({
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
   const editor = useEditor({
-    extensions: [Document, Paragraph, Text, Image.configure({ allowBase64: false }), Dropcursor],
+    extensions: [StarterKit, Document, Paragraph, Text, Underline,
+       Image.configure({ allowBase64: false }), Dropcursor
+    ],
     content: initialContent,
     editable: !readOnly,
     onUpdate: ({ editor }) => {
@@ -39,30 +43,11 @@ export default function TiptapEditor({
     immediatelyRender: false,
   });
 
-  const handleImageUploadButtonClick = () =>{
-    fileInputRef.current?.click();
-  }
 
-  const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('are you in here?');
-    const file = event.target.files?.[0];
-    if (!file) return;
-    const imageUrl = await uploadImage(file);
-    editor?.chain().focus().setImage({ src: imageUrl }).run();
-  }
-  
-  const handleImageUploadButton = useCallback(() => {
-    if (!editor) return;
-    const url = window.prompt("URL")
-    if(url) {
-      editor.chain().focus().setImage({ src: url }).run()
-    }
-  }, [editor])
-  /* if editor not enough render this code return null
   if (!editor){
     return null
   }
-  */
+  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (readOnly) return;
@@ -83,10 +68,10 @@ export default function TiptapEditor({
   
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='p-[1px] bg-gray-500 relative'>
-        <div className='rounded-md bg-white w-[50rem] h-full'>
-          <div className='p-2 bg-red-50 h-12'>
+    <form onSubmit={handleSubmit} className='h-full'>
+      <div className='pt-[50px] h-dvh'>
+        <div className='border-4 border-gray-550 rounded-md bg-white w-full md:w-[50rem] h-full flex flex-col'>
+          <div className='p-2 bg-red-50 border-4 border-pink-500 h-[50px]'>
             <input 
               className='border-solid border-white border-2 h-full w-full pl-2 pr-2 text-center text-justify'
               type="text"
@@ -105,31 +90,13 @@ export default function TiptapEditor({
               readOnly={true}
             />
           </div>
-          {!readOnly && (
-            <div className='flex'>
-              <button 
-                className='bg-blue-50 mr-5' 
-                onClick={() => handleImageUploadButtonClick()}
-                type='button'
-              >
-                this is first button
-              </button>
-              <input 
-                className='hidden' 
-                ref={fileInputRef}
-                type="file" 
-                accept="image/*" 
-                onChange={handleImageUpload} />
-              <button className='bg-red-50' onClick={handleImageUploadButton}> this is button</button>
-            </div>
-          )}
-          <EditorContent className={styles.ProseMirror} editor={editor} />
+          <div>
+            <Toolbar editor={editor} content={content} readOnly={readOnly}/>
+          </div>
+          <div onClick={() => editor?.commands.focus()} className='flex-1 border-4 border-pink-400'>
+            <EditorContent className={styles.ProseMirror} editor={editor} style={{ whiteSpace: "pre-line" }}  />
+          </div>
           <input type="hidden" name="content" value={content} />
-          {!readOnly && (
-            <div className='flex items-center justify-center pt-2 pb-2'>
-              <button className='bg-blue-500 rounded-md w-[4rem] h-[3rem]' type="submit">Save</button>
-            </div>
-          )}
         </div>
       </div>
     </form>
