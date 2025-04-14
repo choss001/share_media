@@ -11,5 +11,7 @@ export const uploadImage = async(file: File) => {
   }
 
   const data = await res.json();
-  return `${process.env.NEXT_PUBLIC_SPRING_API_URL}/${data.contents}`;
+  debugger
+  return data.contents;
+  // return `${process.env.NEXT_PUBLIC_SPRING_API_URL}/${data.contents}`;
 }

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ViewClient from "../../components/viewClient"; // Import client-side component
+ // Import client-side component
 
 export default async function EditPage({ params }: { params: { id: string } }) {
   // Fetch data server-side
@@ -32,5 +32,4 @@ export default async function EditPage({ params }: { params: { id: string } }) {
 
   const topic = await res.json();
 
-  return <ViewClient topic={topic} />; // Pass data to Client Component
 }

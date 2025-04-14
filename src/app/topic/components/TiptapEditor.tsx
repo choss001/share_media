@@ -12,6 +12,7 @@ import { validateFormData } from '@/app/topic/utils/validations';
 import Toolbar from '@/app/topic/components/Toolbar'
 import StarterKit from '@tiptap/starter-kit'
 import { Underline } from '@tiptap/extension-underline';
+import { FileAttachment } from '@/app/topic/components/fileAttachment';
 
 interface TiptapEditorProps{
   action?: (data: FormData) => void;
@@ -33,7 +34,7 @@ export default function TiptapEditor({
   const [content, setContent] = useState(initialContent);
   const editor = useEditor({
     extensions: [StarterKit, Document, Paragraph, Text, Underline,
-       Image.configure({ allowBase64: false }), Dropcursor
+       Image.configure({ allowBase64: false }), Dropcursor, FileAttachment
     ],
     content: initialContent,
     editable: !readOnly,
@@ -54,6 +55,7 @@ export default function TiptapEditor({
 
     const formData = new FormData(event.currentTarget);
     const validationResult = validateFormData(formData);
+    console.log("hello");
     if(!validationResult.success) {
       alert(
         validationResult.error.errors

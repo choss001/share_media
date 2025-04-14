@@ -28,16 +28,49 @@ type Props = {
 const Toolbar = ({ editor, readOnly = false }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleImageUploadButtonClick = () =>{
+  const handleImageUploadButtonClick = (event: React.MouseEvent) =>{
+    event.preventDefault();
     fileInputRef.current?.click();
   }
 
   const handleImageUpload = async(event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('are you in here?');
     const file = event.target.files?.[0];
     if (!file) return;
     const imageUrl = await uploadImage(file);
     editor?.chain().focus().setImage({ src: imageUrl }).run();
+  }
+
+  const fileUploadFunction = (event: React.MouseEvent) => {
+    event.preventDefault();
+    
+    const fileInput = document.createElement('input')
+    fileInput.type = 'file'
+    fileInput.accept = '*'
+    fileInput.click()
+
+    fileInput.onchange = async () => {
+      const file = fileInput.files?.[0]
+      if (!file) return
+
+      // Upload the file (you can use your own API)
+      const formData = new FormData()
+      formData.append('file', file)
+      console.log('file');
+      console.log(file);
+      const res = await fetch('/api/upload/file', {
+        method: 'POST',
+        body: formData,
+      })
+      const data = await res.json()
+      
+      editor?.chain().focus().insertContent({
+        type: 'fileAttachment',
+        attrs: {
+          src: data.fileUrl,     // the file URL from your server
+          name: file.name,
+        },
+      }).run()
+    }
   }
   
   if (!editor) {
@@ -197,7 +230,7 @@ const Toolbar = ({ editor, readOnly = false }: Props) => {
         {!readOnly && (
           <div className='flex'>
             <button 
-              onClick={() => handleImageUploadButtonClick()}
+              onClick={(MouseEvent) => handleImageUploadButtonClick(MouseEvent)}
               className="text-sky-400 hover:bg-sky-700 hover:text-white p-1 hover:rounded-lg" 
             > 
               <Image className="w-5 h-5"/>
@@ -210,6 +243,17 @@ const Toolbar = ({ editor, readOnly = false }: Props) => {
               onChange={handleImageUpload} />
           </div>
         )}
+
+        <button
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          onClick={async (e) => {
+            fileUploadFunction(e);
+            }
+          }
+        >
+          Attach File
+        </button>
+
 
       </div>
 
