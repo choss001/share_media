@@ -16,7 +16,7 @@ import {
   Code,
   Image,
 } from "lucide-react";
-import { useCallback, useState, useRef } from "react";
+import { useRef } from "react";
 import { uploadImage } from '@/app/topic/utils/uploadImage';
 
 type Props = {

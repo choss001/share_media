@@ -6,7 +6,7 @@ import Dropcursor from '@tiptap/extension-dropcursor'
 import Image from '@tiptap/extension-image'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
-import { useCallback, useState, useRef } from "react";
+import { useState } from "react";
 import styles from './styles.module.scss';
 import { validateFormData } from '@/app/topic/utils/validations';
 import Toolbar from '@/app/topic/components/Toolbar'
@@ -29,7 +29,6 @@ export default function TiptapEditor({
   id = 0,
   readOnly = false,
 } : TiptapEditorProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
   const editor = useEditor({

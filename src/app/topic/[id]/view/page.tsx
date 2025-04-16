@@ -19,7 +19,7 @@ export default function ViewTopic() {
         setTitle(data.title)
         return data})
       .then((data) => setContent(data.contents))
-      .catch((err) => setError('Failed to load content.'));
+      .catch((err) => setError(`Failed to load content. ${err}`));
   }, [id]);
 
   if (error) return <div className="text-red-500">{error}</div>;
