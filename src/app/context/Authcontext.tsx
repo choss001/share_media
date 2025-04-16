@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // Check for the token in cookie when the app loads
         const checkAuth = async (): Promise<void> => {
             try {
-                const checkAuth = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/api/test/profile`, {
+                const checkAuth = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/test/profile`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },

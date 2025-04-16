@@ -4,7 +4,7 @@ import { saveContent } from '@/app/topic/utils/action';
 import { useRouter } from 'next/navigation';
 
 // Dynamically import TiptapEditor
-const TiptapEditor = dynamic(() => import('../components/TiptapEditor'), { ssr: false });
+const TiptapEditor = dynamic(() => import('@/app/topic/components/TiptapEditor'), { ssr: false });
 
 export default function Tiptap() {
 

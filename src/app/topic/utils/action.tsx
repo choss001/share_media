@@ -38,3 +38,28 @@ export async function saveContent(
 
     }
 }
+
+
+
+export async function getContentById(id: string) {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store', // Prevent caching
+      });
+  
+      if (!res.ok) {
+        throw new Error(`Failed to fetch content. Status: ${res.status}`);
+      }
+  
+      const data = await res.json();
+      return data; // Assume data has shape { content: "<p>...</p>" }
+    } catch (error) {
+      console.error('Error fetching content:', error);
+      throw error;
+    }
+  }
+  

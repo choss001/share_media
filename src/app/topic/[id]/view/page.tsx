@@ -1,35 +1,37 @@
-import { notFound } from "next/navigation";
- // Import client-side component
+'use client';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 
-export default async function EditPage({ params }: { params: { id: string } }) {
-  // Fetch data server-side
-  const res = await fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/${params.id}`, {
-    cache: "no-store",
-  });
+// Assume this utility function fetches content by ID
+import { getContentById } from '@/app/topic/utils/action';
 
-  //update hits
-  console.log('why!!!');
-  fetch(`${process.env.NEXT_PUBLIC_SPRING_API_URL}/tiptap/board/hits/${params.id}`,{
-    method: "PATCH",
-    headers: {
-      "content-type": "application/json",
-    },
-  })
-  .then((res) => {
-    console.log('why!!!');
-    if(!res.ok) {
-      console.log(res);
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-  })
-  .catch((err) => {
-    console.error(`err = ${err}`)
-  });
-  
-  if (!res.ok) {
-    notFound(); // Show 404 page if the topic is not found
-  }
+export default function ViewTopic() {
+  const params = useParams();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const [content, setContent] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const topic = await res.json();
+  useEffect(() => {
+    getContentById(id)
+      .then((data) => {
+        console.log(data)
+        setTitle(data.title)
+        return data})
+      .then((data) => setContent(data.contents))
+      .catch((err) => setError('Failed to load content.'));
+  }, [id]);
 
+  if (error) return <div className="text-red-500">{error}</div>;
+  if (!content) return <div>Loading...</div>;
+
+  return (
+    <div className="pt-[50px]">
+      <h1 className='text-3xl font-bold mb-6'>{title}</h1>
+      <div
+        className="prose max-w-none"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </div>
+  );
 }

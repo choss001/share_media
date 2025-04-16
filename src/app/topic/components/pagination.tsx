@@ -1,33 +1,40 @@
-'use client';
-
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
-
-export default function Pagination({ totalPage }: { totalPage: number }) {
+interface PaginationProps {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+  }
+  
+  export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+    if (totalPages <= 1) return null;
+  
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <PaginationContent totalPage={totalPage} />
-        </Suspense>
+      <div className="flex justify-center items-center space-x-2 mt-4">
+        <button
+          className="px-3 py-1 border rounded disabled:opacity-50"
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 0}
+        >
+          Prev
+        </button>
+  
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => onPageChange(index)}
+            className={`px-3 py-1 border rounded ${currentPage === index ? 'bg-blue-500 text-white' : ''}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+  
+        <button
+          className="px-3 py-1 border rounded disabled:opacity-50"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages - 1}
+        >
+          Next
+        </button>
+      </div>
     );
-}
-
-function PaginationContent({ totalPage }: { totalPage: number }) {
-    const pathname = usePathname();
-    console.log(`pathname!!!! ${pathname}`);
-
-    const searchParams = useSearchParams();
-    console.log(`searchParams!!!! ${searchParams}`);
-
-    const currentPage = Number(searchParams.get('page')) || 1;
-    console.log(`currentPage!!!! ${currentPage}`);
-
-    const createPageURL = (pageNumber: number | string) => {
-        const params = new URLSearchParams(searchParams);
-        console.log(`parmas!!!! ${params}`);
-        params.set('page', pageNumber.toString());
-        return `${pathname}?${params.toString()}`;
-    };
-    console.log(`createPageURL!!!! ${createPageURL(2)}`);
-
-    return <div>{totalPage}</div>;
-}
+  }
+  
