@@ -86,7 +86,7 @@ function ChatWindow({ messages, loading, messageEndRef }
 function WelcomeMessage() {
     return (
         <div className="w-full flex flex-col items-center h-[45dvh] justify-end">
-            <div className="mb-6 text-2xl">조성식에 대한 것을 물어보세요!</div>
+            <div className="mb-6 text-2xl text-black">조성식에 대한 것을 물어보세요!</div>
         </div>
     );
 }
@@ -100,7 +100,7 @@ function ChatInput({ inputValue, setInputValue, handleSubmit, loading }: { input
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="메시지를 입력하세요..."
-                    className="flex-1 outline-none bg-transparent text-lg"
+                    className="flex-1 outline-none bg-transparent text-lg text-black"
                 />
                 <button type="submit" className="ml-2 w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-gray-800" disabled={loading}>
                     {loading ? '⏳' : '✍'}

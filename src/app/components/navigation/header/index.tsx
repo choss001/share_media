@@ -50,25 +50,25 @@ const Header = () => {
             <div className="w-[55em] flex">
                 <div className='mr-auto'>
                     <Link href="https://github.com/choss001">
-                        <div>성식이</div>
+                        <div className='text-black'>성식이</div>
                     </Link>
                 </div>
                 <div className='ml-auto flex space-x-12'>
                     <Link href="/">
-                        <div>Main</div>
+                        <div className='text-black'>Main</div>
                     </Link>
                     <Link href="/services">
-                        <div>Services</div>
+                        <div className='text-black'>Services</div>
                     </Link>
                     {/* <Link href="/topic">
                         <div>Topic</div>
                     </Link> */}
 
                     <Link href="/test">
-                        <div>Upload</div>
+                        <div className='text-black'>Upload</div>
                     </Link>
                     <Link href="/topic">
-                        <div>Topic</div>
+                        <div className='text-black'>Topic</div>
                     </Link>
                     {isAuthenticated ? (
                         <div className='flex space-x-12'>
@@ -78,14 +78,14 @@ const Header = () => {
                         </div>
                     ) : (
                         <Link href="/signin">
-                            <div>Sign In</div>
+                            <div className='text-black'>Sign In</div>
                         </Link>
                     )}
                     {/* <Link href="/user">
                         <div>User</div>
                     </Link> */}
                     <Link href="/llm">
-                        <div>Chat with AI</div>
+                        <div className='text-black'>Chat with AI</div>
                     </Link>
                 </div>
             </div>
