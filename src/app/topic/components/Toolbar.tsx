@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import { useRef } from "react";
 import { uploadImage } from '@/app/topic/utils/uploadImage';
+import { useState } from "react";
+import axios from "axios";
 
 type Props = {
   editor: Editor | null;
@@ -27,6 +29,8 @@ type Props = {
 
 const Toolbar = ({ editor, readOnly = false }: Props) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const handleImageUploadButtonClick = (event: React.MouseEvent) =>{
     event.preventDefault();
@@ -42,7 +46,9 @@ const Toolbar = ({ editor, readOnly = false }: Props) => {
 
   const fileUploadFunction = (event: React.MouseEvent) => {
     event.preventDefault();
-    
+
+
+
     const fileInput = document.createElement('input')
     fileInput.type = 'file'
     fileInput.accept = '*'
@@ -52,24 +58,49 @@ const Toolbar = ({ editor, readOnly = false }: Props) => {
       const file = fileInput.files?.[0]
       if (!file) return
 
+      setLoading(true);
+      setProgress(0);
+
       // Upload the file (you can use your own API)
       const formData = new FormData()
       formData.append('file', file)
       console.log('file');
       console.log(file);
-      const res = await fetch('/api/upload/file', {
-        method: 'POST',
-        body: formData,
-      })
-      const data = await res.json()
+      try{
+
+        const res = await axios.post('/api/upload/file', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress(progressEvent) {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / (progressEvent.total || 1)
+            );
+            setProgress(percentCompleted)
+          },
+          timeout: 6000000,
+        })
+
+        const data = await res.data;
+
+
+        editor?.chain().focus().insertContent({
+          type: 'fileAttachment',
+          attrs: {
+            src: data.fileUrl,     // the file URL from your server
+            name: file.name,
+          },
+        }).run()
+        setLoading(false)
+        alert(`uplaod success!!`)
+      } catch (error: any) {
+        console.error('Upload error:', error.message)
+        alert(`Error: ${error.message}`)
+      } finally {
+        setLoading(false)
+        setProgress(0)
+      }
       
-      editor?.chain().focus().insertContent({
-        type: 'fileAttachment',
-        attrs: {
-          src: data.fileUrl,     // the file URL from your server
-          name: file.name,
-        },
-      }).run()
     }
   }
   
@@ -253,6 +284,17 @@ const Toolbar = ({ editor, readOnly = false }: Props) => {
 
 
       </div>
+
+
+      {/* Upload Progress Bar */}
+      {progress > 0 && (
+          <div className="mb-4">
+              <div className="h-4 bg-gray-200 rounded">
+                  <div className="h-4 bg-blue-500 rounded" style={{ width: `${progress}%` }}></div>
+              </div>
+              <p className="text-sm text-center mt-1">{progress}% uploaded</p>
+          </div>
+      )}
 
       {!readOnly && (
         // <div className='flex items-center justify-center pt-2 pb-2'>

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import LoadingDots from '../components/LoadingDots';
+import ReactMarkdown from 'react-markdown';
 
 export default function Llm() {
     const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'ai' }[]>([]);
@@ -22,30 +23,56 @@ export default function Llm() {
         setLoading(true);
     
         try {
-            const url = 'https://a31.ddns.net/chat'
-            // const url = 'http://localhost:8000/chat'
+            // const url = 'https://a31.ddns.net/chat'
+            const url = 'http://127.0.0.1:8001/api/stream'
+            //const url = 'https://a31.ddns.net/chat/stream'
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: inputValue }),
+                body: JSON.stringify({ question : inputValue }),
             });
     
             const reader = response.body?.getReader();
             const decoder = new TextDecoder();
-            let aiMessage = '';
+            
+            let currentText = '';
+            
             setMessages((prev) => [...prev, { text: '', sender: 'ai' }]);
-    
+
+            const normalize = (text: string) => {
+                return text.replace(/\s+/g, ' ') // 여러 공백을 하나로
+                           .replace(/ ([.,!?…])/g, '$1'); // 문장부호 앞의 공백 제거
+            };
+            
             while (true) {
                 const { done, value } = await reader!.read();
                 if (done) break;
-                aiMessage += decoder.decode(value, { stream: true });
-    
-                setMessages((prev) => {
-                    const updated = [...prev];
-                    updated[updated.length - 1] = { text: aiMessage, sender: 'ai' };
-                    return updated;
-                });
+            
+                const chunk = decoder.decode(value, { stream: true });
+            
+                // Split by newlines to handle multiple data lines
+                const lines = chunk.split('\n');
+            
+                for (const line of lines) {
+                    if (line.startsWith('data:')) {
+                        const token = line.slice(6).replace(/\r/g, ''); // Removes "data:" but keeps spacing
+                        
+                        console.log(`token :${token}`)
+                        if (token === '[DONE]') return;
+                    
+                        currentText += token;
+                        console.log(`currentText: ${JSON.stringify(currentText)}`)
+                    
+                        setMessages((prev) => {
+                            const updated = [...prev];
+                            updated[updated.length - 1] = { text: currentText, sender: 'ai' };
+                            console.log(updated)
+                            return updated;
+                        });
+                    }
+                }
             }
+            
         } catch (err) {
             console.error(err);
             setMessages((prev) => [...prev, { text: 'Error streaming response', sender: 'ai' }]);
@@ -69,9 +96,10 @@ function ChatWindow({ messages, loading, messageEndRef }
             <div className="flex-1 flex flex-col p-4 space-y-3 max-w-[48rem] w-full mt-[3rem]">
                 {messages.map((msg, index) => (
                     <div key={index} className={`max-w-xs md:max-w-[40em] p-3 rounded-lg break-words ${msg.sender === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-200 text-black'}`}>
-                        {msg.text}
+                            <ReactMarkdown>{msg.text}</ReactMarkdown>
                     </div>
                 ))}
+
                 {loading && (
                     <div className="h-full text-gray-500 items-center flex justify-center">
                         <LoadingDots />

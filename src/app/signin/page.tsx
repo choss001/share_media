@@ -52,7 +52,7 @@ export default function SignIn() {
                 <h1 className='text-2xl font-bold text-center text-gray-700 mb-6'>Sign In</h1>
                 <div className='space-y-4'>
                     <input 
-                        className='w-full p-3 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                        className='w-full p-3 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 text-black' 
                         type='text'
                         name='username'
                         placeholder='Username'
@@ -61,7 +61,7 @@ export default function SignIn() {
                         onKeyDown={handleKeyDown}
                     />
                     <input 
-                        className='w-full p-3 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500' 
+                        className='w-full p-3 border rounded-md text-center focus:outline-none focus:ring-2 focus:ring-blue-500 text-black' 
                         type='password'
                         name='password'
                         placeholder='Password'

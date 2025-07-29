@@ -59,17 +59,17 @@ export default function Home() {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto pt-[50px]">
+    <div className="md:p-6 md:pt-[50px] pt-[50px] max-w-5xl mx-auto h-dvh ">
       <h1 className="text-2xl font-bold text-center mb-6">Topic List</h1>
 
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
-        <thead className="bg-gray-100 text-gray-700 text-sm">
-          <tr>
-            <th className="py-4 px-6 text-left font-medium">User</th>
-            <th className="py-4 px-6 text-left font-medium">Title</th>
-            <th className="py-4 px-6 text-left font-medium">Created At</th>
-            <th className="py-4 px-6 text-center font-medium">Hits</th>
-            <th className="py-4 px-6 text-center font-medium">Edit</th>
+      <table className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden">
+        <thead className="bg-gray-100 text-gray-700 text-xs">
+          <tr className="">
+            <th className="md:py-4 md:px-6 py-1 px-2 text-center font-medium">User</th>
+            <th className="md:py-4 md:px-6 py-1 px-2 text-center font-medium">Title</th>
+            <th className="md:py-4 md:px-6 py-1 px-2 text-center font-medium">Created At</th>
+            <th className="md:py-4 md:px-6 py-1 px-2 text-center font-medium">Hits</th>
+            <th className="md:py-4 md:px-6 py-1 px-2 text-center font-medium">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -79,11 +79,11 @@ export default function Home() {
               className="hover:bg-gray-50 transition cursor-pointer"
               onClick={() => window.location.href = `/topic/${temp.id}/view`}
             >
-              <td className="px-6 py-4 text-sm">{temp.userName}</td>
-              <td className="px-6 py-4 text-sm">{temp.title}</td>
-              <td className="px-6 py-4 text-sm">{temp.createdAt}</td>
-              <td className="px-6 py-4 text-center text-sm">{temp.hits}</td>
-              <td className="px-6 py-4 text-center">
+              <td className="md:py-4 md:px-6 py-1 px-2 text-center text-xs md:text-sm">{temp.userName}</td>
+              <td className="md:py-4 md:px-6 py-1 px-2 text-center text-xs md:text-sm">{temp.title}</td>
+              <td className="md:py-4 md:px-6 py-1 px-2 text-center text-xs md:text-sm">{temp.createdAt}</td>
+              <td className="md:py-4 md:px-6 py-1 px-2 text-center text-xs md:text-sm">{temp.hits}</td>
+              <td className="md:py-4 md:px-6 py-1 px-2 text-center text-xs md:text-sm">
                 <Link href={`/topic/${temp.id}/edit`}>
                   <button
                     onClick={(e) => e.stopPropagation()}

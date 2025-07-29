@@ -10,22 +10,37 @@ const HeaderMobile = () => {
             <Link
                 className="flex-auto"
                 href="/">
-                <div className="flex justify-center">main</div>
+                <div className="flex justify-center text-xs text-black">main</div>
             </Link>
+            <div className="border-r-[1px] border-gray w-0 h-[1rem]"/>
+            <Link
+                className="flex-auto"
+                href="/signin">
+                <div className="flex justify-center text-xs text-black">signin</div>
+            </Link>
+            <div className="border-r-[1px] border-gray w-0 h-[1rem]"/>
             <Link
                 className="flex-auto"
                 href="/services">
-                <div className="flex justify-center">services</div>
+                <div className="flex justify-center text-xs text-black">services</div>
             </Link>
+            <div className="border-r-[1px] border-gray w-0 h-[1rem]"/>
             <Link
                 className="flex-auto"
                 href="/test">
-                <div className="flex justify-center">upload</div>
+                <div className="flex justify-center text-xs text-black">upload</div>
             </Link>
+            <div className="border-r-[1px] border-gray w-0 h-[1rem]"/>
+            <Link
+                className="flex-auto"
+                href="/topic">
+                <div className="flex justify-center text-xs text-black">diary</div>
+            </Link>
+            <div className="border-r-[1px] border-gray w-0 h-[1rem]"/>
             <Link
                 className="flex-auto"
                 href="/llm">
-                <div className="flex justify-center">chat with ai</div>
+                <div className="flex justify-center text-xs text-black">chat with ai</div>
             </Link>
         </div>
     )
